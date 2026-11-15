@@ -126,3 +126,24 @@ def test_s15_one_alert_per_event_and_fixpoint_is_stable():
     n = len(g)
     rules.run(g)
     assert len(g) == n  # re-running adds nothing: deterministic IRIs -> fixpoint
+
+
+# ------------------------------------------------------------- blind-spot fix (rule C4)
+def blind_spot_case(review_runner_up):
+    g = working_copy(include_observations=False)
+    add_event(g, "b", "animal", "taman_negara", T0, "wild_boar", 0.34, runner_up="tiger", runner_up_confidence=0.31)
+    add_event(g, "p", "person", "taman_negara", T0 + timedelta(hours=1))
+    rules.run(g, review_runner_up=review_runner_up)
+    return g
+
+
+def test_s16_low_confidence_with_threatened_runner_up_goes_to_review():
+    g = blind_spot_case(review_runner_up=True)
+    tasks = rules.review_tasks(g)
+    assert reviewed(g, "b") and "second guess is threatened Tiger" in tasks[0]["reasons"]
+
+
+def test_s17_without_c4_the_blind_spot_reappears():
+    g = blind_spot_case(review_runner_up=False)
+    assert not reviewed(g, "b")
+    assert rules.top_priority(g, "p") == "LOW"   # the possible tiger passes silently

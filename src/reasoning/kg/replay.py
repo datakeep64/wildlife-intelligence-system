@@ -13,6 +13,7 @@ so each distinct input is run through the real rule engine once and reused (memo
 Outputs: results/kg/alert_replay.json, alert_replay_rows.csv
 Usage:   .venv/bin/python -m src.reasoning.kg.replay
 """
+import itertools
 import json
 from datetime import datetime, timedelta
 from functools import lru_cache
@@ -35,13 +36,15 @@ THRESHOLDS = [0.0, 0.5, 0.7, 0.9]
 
 
 @lru_cache(maxsize=None)
-def decide(taxon: str, above_threshold: bool, threshold: float) -> tuple[str, bool]:
-    """Run the real rule engine once for this input. Returns (person-alert priority, sent to review)."""
+def decide(taxon: str, runner_up: str | None, above_threshold: bool, threshold: float,
+           review_runner_up: bool) -> tuple[str, bool]:
+    """Run the real rule engine once for this input. Returns (person-alert priority, sent to review).
+    The runner-up only matters below the threshold, so callers pass None above it (fewer distinct runs)."""
     g = working_copy(include_observations=False)
     conf = min(threshold + 0.05, 0.999) if above_threshold else max(threshold - 0.05, 0.0)
-    add_event(g, "s", "animal", ZONE, T0, taxon, conf)
+    add_event(g, "s", "animal", ZONE, T0, taxon, conf, runner_up=runner_up)
     add_event(g, "p", "person", ZONE, T0 + timedelta(hours=1))
-    rules.run(g, review_threshold=threshold)
+    rules.run(g, review_threshold=threshold, review_runner_up=review_runner_up)
     review = any(r["sighting"] == "event_s" for r in rules.review_tasks(g))
     return rules.top_priority(g, "p"), review
 
@@ -63,29 +66,33 @@ def classifier_outputs() -> tuple[pd.DataFrame, list[str]]:
     for name, probs, classes in [("zero_shot", p_zs, labels),
                                  ("logistic_regression", lr.predict_proba(X[te]), list(lr.clf.classes_)),
                                  ("knn", knn.clf.predict_proba(X[te]), list(knn.clf.classes_))]:
-        out[f"{name}_pred"] = np.array(classes)[probs.argmax(1)]
+        order = np.argsort(-probs, axis=1)
+        out[f"{name}_pred"] = np.array(classes)[order[:, 0]]
         out[f"{name}_conf"] = probs.max(1)
+        out[f"{name}_runner"] = np.array(classes)[order[:, 1]]
     return out, labels
 
 
 def main() -> None:
     preds, labels = classifier_outputs()
-    truth = {lab: decide(lab, True, 0.0)[0] for lab in labels}
+    truth = {lab: decide(lab, None, True, 0.0, True)[0] for lab in labels}
     print("true-label decision per species:", truth)
-    rows, summary = [], {"zone": ZONE, "true_priority_by_species": truth, "results": {}}
-    for clf in ("zero_shot", "logistic_regression", "knn"):
-        for tau in THRESHOLDS:
+    rows = []
+    summary = {"zone": ZONE, "true_priority_by_species": truth,
+               "results": {}, "results_before_fix": {}}  # after / before rule C4 (runner-up review)
+    for fix, clf, tau in itertools.product((False, True), ("zero_shot", "logistic_regression", "knn"), THRESHOLDS):
+        if True:
             r = preds[["image_id", "true"]].copy()
-            r["pred"], r["conf"] = preds[f"{clf}_pred"], preds[f"{clf}_conf"]
-            dec = [decide(p, c >= tau, tau) for p, c in zip(r.pred, r.conf)]
+            r["pred"], r["conf"], r["runner"] = preds[f"{clf}_pred"], preds[f"{clf}_conf"], preds[f"{clf}_runner"]
+            dec = [decide(p, None if c >= tau else ru, c >= tau, tau, fix) for p, c, ru in zip(r.pred, r.conf, r.runner)]
             r["priority"] = [d[0] for d in dec]
             r["review"] = [d[1] for d in dec]
             r["true_priority"] = r.true.map(truth)
-            r["classifier"], r["threshold"] = clf, tau
+            r["classifier"], r["threshold"], r["runner_up_rule"] = clf, tau, fix
             rows.append(r)
             hi_true, hi_pred = r.true_priority == "HIGH", r.priority == "HIGH"
             wrong = r.pred != r.true
-            summary["results"][f"{clf}@{tau}"] = {
+            summary["results" if fix else "results_before_fix"][f"{clf}@{tau}"] = {
                 "classifier": clf, "threshold": tau, "n": int(len(r)),
                 "species_errors": int(wrong.sum()),
                 "priority_correct": round(float((r.priority == r.true_priority).mean()), 4),
@@ -108,7 +115,9 @@ def main() -> None:
     (OUT / "alert_replay.json").write_text(json.dumps(summary, indent=2))
     cols = ["priority_correct", "high_recall", "high_precision", "false_high", "missed_high",
             "missed_high_sent_to_review", "review_rate", "errors_caught_by_review", "silent_priority_errors"]
-    print(pd.DataFrame(summary["results"]).T[cols].to_string())
+    for key in ("results_before_fix", "results"):
+        print(f"\n{key}:")
+        print(pd.DataFrame(summary[key]).T[cols].to_string())
     print(f"\n{summary['rule_engine_runs']} distinct rule-engine runs; wrote {OUT / 'alert_replay.json'}")
 
 

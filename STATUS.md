@@ -10,7 +10,7 @@ _Last updated: 2026-11-15 (session 1: Phase A done; Phase B camera-trap experime
 | Data: IUCN status | Done | `data/download_iucn.py` → statuses for 26 taxa via GBIF |
 | Data: LILA camera traps | Done | `data/download_lila.py` → 1,400 WCS images, location-grouped split |
 | Data: GBIF occurrences | Done | `data/download_gbif.py`: 7,062 seed-species records + 65,953 iNaturalist observer records (year-stratified sample) |
-| Ontology KG + alert rules | Done | TBox + seed ABox + GBIF reconciliation (`observations.ttl`); 17 SPARQL rules in 5 strata (forward chaining, stratified negation, conflict resolution, explanations); 15 scenario tests; error replay of real camera-trap predictions ([README](src/reasoning/kg/README.md)) |
+| Ontology KG + alert rules | Done | TBox + seed ABox + GBIF reconciliation (`observations.ttl`); 18 SPARQL rules in 5 strata (forward chaining, stratified negation, conflict resolution, explanations); 17 scenario tests; error replay of real camera-trap predictions ([README](src/reasoning/kg/README.md)) |
 | Camera-trap pipeline + experiment | Done | MegaDetector → crop → BioCLIP → zero-shot / logistic regression / kNN on 1,400 images, with a location-grouped split, location bootstrap, few-shot curve and 4 figures ([README](src/perception/camera_trap/README.md)). Person detection on COCO still to do |
 | NLLB translation | Working (results pending) | Module (raw + glossary modes), 20-alert eval set, evaluator; smoke run on 3 alerts × 3 languages done ([outputs](results/translation/outputs.csv)) |
 | Recommenders + comparison | Done | Popularity (global, by country), knowledge-based (2 variants), ALS, content (taxonomy, BioCLIP), switching hybrid; time-based split with a validation stage; per-segment results and 2 figures ([README](src/reasoning/recsys/README.md)). Trail suggestions built but not evaluated |
@@ -39,7 +39,7 @@ _Last updated: 2026-11-15 (session 1: Phase A done; Phase B camera-trap experime
   - **Zero-shot, no review:** 12 false HIGH alerts (HIGH precision 0.76); 5 of them are tapirs called tigers.
   - **Logistic regression with review at 0.5:** 0 false HIGH (precision 1.00, recall 0.95), with 6% of sightings sent to review.
   - **Zero-shot is confidently wrong** (22% of its errors at ≥ 0.9 confidence vs 3% for logistic regression). Even with 17% of sightings reviewed, it still raises 3 false HIGH alerts. [alert_tradeoff.png](results/kg/alert_tradeoff.png)
-  - **Review blind spot:** a tiger misread as *wild boar* at 0.34 confidence passed silently, because review only triggers when the *predicted* species is threatened.
+  - **Review blind spot, found and fixed:** a tiger misread as *wild boar* at 0.34 confidence passed silently, because review only triggered when the *predicted* species was threatened. New rule C4 also reviews low-confidence sightings whose *runner-up* is threatened. For logistic regression at 0.5: silently missed tigers 1 → **0**, silent priority errors 12 → 7, errors caught by review 38% → 55%, at a cost of 6.3% → 8.7% of sightings reviewed. False HIGH alerts stay at 0.
 - **Recommender comparison** (1,869 held-out 2026 observers: 1,387 cold, 259 light, 223 heavy; precision@10; [metrics.json](results/recsys/metrics.json)):
   - **Regional popularity won:** 0.134 (cold), 0.129 (light), 0.109 (heavy). Validation chose it for every segment, so the switching hybrid became popularity.
   - **ALS ties popularity on active users** (0.118; paired difference −0.005 to +0.023) and loses on light users (0.099). It can't serve new users at all.
@@ -86,7 +86,7 @@ _Last updated: 2026-11-15 (session 1: Phase A done; Phase B camera-trap experime
 12. **Closed-set probes can't flag unknown species:** 8 of 17 pangolins were confidently called "clouded leopard". Zero-shot with an extra label handles this better (9/17 correct).
 13. **kNN picked k=20, the edge of the search grid.** The grid should be extended.
 14. **MegaDetector puts false "animal" boxes on 12% of empty frames** (6/50) at threshold 0.2.
-15. **Review blind spot** (see results): low-confidence predictions of *non-threatened* species aren't reviewed, so a misread tiger can slip through.
+15. ~~Review blind spot~~ **Fixed by rule C4** (see results). It costs about 2–4 extra percentage points of review workload, and it doesn't help zero-shot, whose mistakes are confident.
 16. **Zone-level threat data doesn't discriminate.** Every zone has a VU/EN species in the records, so rule A4 makes every person alert at least MEDIUM.
 17. **CR locations are mostly blurred in GBIF,** so the "CR species recorded in this zone" rule (A2) can only use the straw-headed bulbul. The design leans on camera evidence.
 18. **A SPARQL scoping bug** (`FILTER` inside a `UNION` branch) silently disabled the camera part of rules A3 and A4. Scenario tests caught it, and it's fixed.
@@ -110,8 +110,7 @@ _Last updated: 2026-11-15 (session 1: Phase A done; Phase B camera-trap experime
 
 ## Next up
 
-1. Close the review blind spot (also review when the runner-up species is threatened), then re-run the replay.
-2. Property graph (co-occurrence) and PyKEEN link prediction (TransE vs another model) on held-out `livesIn` triples.
-3. Optional recommender follow-up: a weighted hybrid (ALS or BioCLIP-content blended with popularity, weight tuned on validation).
-4. MegaDetector person recall and false positives on a small COCO person/no-person set (domain gap stated).
-5. Small camera-trap follow-ups: an Africa→Laos leopard split, and a wider kNN grid.
+1. Property graph (co-occurrence) and PyKEEN link prediction (TransE vs another model) on held-out `livesIn` triples.
+2. Optional recommender follow-up: a weighted hybrid (ALS or BioCLIP-content blended with popularity, weight tuned on validation).
+3. MegaDetector person recall and false positives on a small COCO person/no-person set (domain gap stated).
+4. Small camera-trap follow-ups: an Africa→Laos leopard split, and a wider kNN grid.

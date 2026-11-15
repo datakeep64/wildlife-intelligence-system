@@ -13,7 +13,8 @@ KIND = {"animal": WIS.AnimalSighting, "person": WIS.PersonDetection, "vehicle": 
 
 
 def add_event(g: Graph, event_id: str, kind: str, zone: str, when: datetime,
-              taxon: str | None = None, confidence: float | None = None, camera: str | None = None) -> None:
+              taxon: str | None = None, confidence: float | None = None, camera: str | None = None,
+              runner_up: str | None = None, runner_up_confidence: float | None = None) -> None:
     s = WIS[f"event_{event_id}"]
     g.add((s, RDF.type, KIND[kind]))
     g.add((s, RDF.type, WIS.Sighting))
@@ -30,13 +31,20 @@ def add_event(g: Graph, event_id: str, kind: str, zone: str, when: datetime,
         g.add((s, WIS.predictedTaxon, WIS[taxon]))
     if confidence is not None:
         g.add((s, WIS.confidence, Literal(round(float(confidence), 4), datatype=XSD.decimal)))
+    if runner_up:
+        g.add((s, WIS.runnerUpTaxon, WIS[runner_up]))
+    if runner_up_confidence is not None:
+        g.add((s, WIS.runnerUpConfidence, Literal(round(float(runner_up_confidence), 4), datatype=XSD.decimal)))
 
 
 def from_pipeline(g: Graph, sighting: dict, when: datetime, zone: str, frame_id: str) -> list[str]:
     """Ingest one TriagePipeline output record. Returns the event ids created."""
     ids = []
     if sighting.get("species"):
-        add_event(g, f"{frame_id}_animal", "animal", zone, when, sighting["species"], sighting["species_conf"], sighting.get("camera_id"))
+        top3 = sighting.get("top3") or []
+        ru, ru_p = (top3[1][0], top3[1][1]) if len(top3) > 1 else (None, None)
+        add_event(g, f"{frame_id}_animal", "animal", zone, when, sighting["species"], sighting["species_conf"],
+                  sighting.get("camera_id"), runner_up=ru, runner_up_confidence=ru_p)
         ids.append(f"{frame_id}_animal")
     if sighting.get("n_persons"):
         add_event(g, f"{frame_id}_person", "person", zone, when, camera=sighting.get("camera_id"))

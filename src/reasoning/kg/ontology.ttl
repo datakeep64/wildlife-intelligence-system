@@ -153,3 +153,8 @@ wis:hourOfDay      a owl:DatatypeProperty ; rdfs:domain wis:Sighting ; rdfs:rang
 wis:reviewThreshold  a owl:DatatypeProperty ; rdfs:domain wis:Config ; rdfs:range xsd:decimal .
 wis:alertWindowHours a owl:DatatypeProperty ; rdfs:domain wis:Config ; rdfs:range xsd:decimal .
 wis:recordCount    a owl:DatatypeProperty ; rdfs:comment "Number of supporting GBIF records (reconcile.py)."@en .
+wis:runnerUpTaxon  a owl:ObjectProperty ; rdfs:domain wis:AnimalSighting ; rdfs:range wis:Taxon ;
+    rdfs:comment "The classifier's second-ranked species. Used to route uncertain sightings to review (rule C4)."@en .
+wis:runnerUpConfidence a owl:DatatypeProperty ; rdfs:domain wis:AnimalSighting ; rdfs:range xsd:decimal .
+wis:reviewRunnerUp a owl:DatatypeProperty ; rdfs:domain wis:Config ; rdfs:range xsd:boolean ;
+    rdfs:comment "If true, a low-confidence sighting whose runner-up species is threatened goes to review."@en .

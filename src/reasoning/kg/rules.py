@@ -12,7 +12,8 @@ so re-firing a rule re-asserts the same triples - that is what guarantees termin
 Strata
   1 inference   T1 classifier output -> ofTaxon; T2 subspecies refinement by location;
                 T3 subspecies inherit zone records; T4 materialise ThreatenedTaxon
-  2 checks      C1 not recorded in country; C2 no habitat overlap; C3 low confidence on a threatened taxon
+  2 checks      C1 not recorded in country; C2 no habitat overlap; C3 low confidence on a threatened taxon;
+                C4 low confidence and the runner-up species is threatened
   3 triage      V1 verified = no issues; V2 one review task per sighting with issues
   4 alerts      A1-A7 (HIGH / MEDIUM / LOW)
   5 conflicts   R1 an alert is suppressed by a higher-priority alert for the same event
@@ -94,6 +95,16 @@ RULES = [
                      ?pt rdfs:label ?tl . FILTER(LANG(?tl) = "en")
                      BIND(CONCAT("classifier confidence ", STR(?p), " is below ", STR(?tau),
                                  " for threatened ", STR(?tl)) AS ?msg) }}"""),
+    Rule("C4", 2, "Issue: low confidence, and the runner-up species is threatened (closes the C3 blind spot)",
+         f"""INSERT {{ ?s wis:issue ?msg }}
+            WHERE {{ ?s a wis:AnimalSighting ; wis:predictedTaxon ?pt ; wis:confidence ?p ; wis:runnerUpTaxon ?ru .
+                     wis:config wis:reviewThreshold ?tau ; wis:reviewRunnerUp true . FILTER(?p < ?tau)
+                     ?ru a wis:ThreatenedTaxon .
+                     FILTER NOT EXISTS {{ ?s wis:ofTaxon ?t . ?t a wis:ThreatenedTaxon }}  # C3 already covers these
+                     ?pt rdfs:label ?pl . FILTER(LANG(?pl) = "en")
+                     ?ru rdfs:label ?rl . FILTER(LANG(?rl) = "en")
+                     BIND(CONCAT("classifier is only ", STR(?p), " sure it is ", STR(?pl),
+                                 ", and its second guess is threatened ", STR(?rl)) AS ?msg) }}"""),
     # ---------------------------------------------------------------- stratum 3: triage
     Rule("V1", 3, "A sighting with no issues is verified (negation: needs stratum 2 complete)",
          "INSERT { ?s wis:verified true } WHERE { ?s a wis:AnimalSighting . FILTER NOT EXISTS { ?s wis:issue ?i } }"),
@@ -143,14 +154,16 @@ RULES = [
 ]
 
 
-def configure(g: Graph, review_threshold: float = 0.5, window_hours: float = 72) -> None:
+def configure(g: Graph, review_threshold: float = 0.5, window_hours: float = 72, review_runner_up: bool = True) -> None:
     g.set((WIS.config, WIS.reviewThreshold, Literal(review_threshold, datatype=XSD.decimal)))
     g.set((WIS.config, WIS.alertWindowHours, Literal(window_hours, datatype=XSD.decimal)))
+    g.set((WIS.config, WIS.reviewRunnerUp, Literal(review_runner_up, datatype=XSD.boolean)))
 
 
-def run(g: Graph, review_threshold: float = 0.5, window_hours: float = 72, max_iter: int = 20) -> list[dict]:
+def run(g: Graph, review_threshold: float = 0.5, window_hours: float = 72, review_runner_up: bool = True,
+        max_iter: int = 20) -> list[dict]:
     """Forward-chain all strata to fixpoint. Returns a trace: triples added per rule per pass."""
-    configure(g, review_threshold, window_hours)
+    configure(g, review_threshold, window_hours, review_runner_up)
     trace = []
     for stratum in sorted({r.stratum for r in RULES}):
         rules = [r for r in RULES if r.stratum == stratum]
