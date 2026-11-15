@@ -1,0 +1,94 @@
+@prefix wis: <https://datakeep64.github.io/wis/ontology#> .
+
+wis:asian_elephant wis:occursInCountry wis:MY .
+
+wis:bearded_pig wis:occursInCountry wis:MY .
+
+wis:binturong wis:occursInCountry wis:MY .
+
+wis:clouded_leopard wis:occursInCountry wis:MY .
+
+wis:dhole wis:occursInCountry wis:MY .
+
+wis:gaur wis:occursInCountry wis:MY .
+
+wis:great_argus wis:observedIn wis:endau_rompin,
+        wis:krau,
+        wis:royal_belum,
+        wis:taman_negara ;
+    wis:occursInCountry wis:MY .
+
+wis:greater_mousedeer wis:observedIn wis:pulau_ubin ;
+    wis:occursInCountry wis:MY,
+        wis:SG .
+
+wis:leopard wis:occursInCountry wis:MY .
+
+wis:leopard_cat wis:observedIn wis:taman_negara ;
+    wis:occursInCountry wis:MY,
+        wis:SG .
+
+wis:lesser_mousedeer wis:observedIn wis:bukit_timah,
+        wis:central_catchment,
+        wis:taman_negara ;
+    wis:occursInCountry wis:MY,
+        wis:SG .
+
+wis:longtailed_macaque wis:observedIn wis:bukit_timah,
+        wis:central_catchment,
+        wis:kuala_selangor,
+        wis:sungei_buloh,
+        wis:taman_negara ;
+    wis:occursInCountry wis:MY,
+        wis:SG .
+
+wis:malayan_porcupine wis:observedIn wis:taman_negara ;
+    wis:occursInCountry wis:MY .
+
+wis:malayan_tapir wis:occursInCountry wis:MY .
+
+wis:masked_palm_civet wis:occursInCountry wis:MY .
+
+wis:pigtailed_macaque wis:occursInCountry wis:MY .
+
+wis:red_muntjac wis:observedIn wis:royal_belum,
+        wis:taman_negara ;
+    wis:occursInCountry wis:MY,
+        wis:SG .
+
+wis:sambar wis:occursInCountry wis:MY,
+        wis:SG .
+
+wis:smooth_otter wis:occursInCountry wis:MY,
+        wis:SG .
+
+wis:straw_headed_bulbul wis:observedIn wis:bukit_timah,
+        wis:central_catchment,
+        wis:pulau_ubin,
+        wis:sungei_buloh,
+        wis:taman_negara ;
+    wis:occursInCountry wis:MY,
+        wis:SG .
+
+wis:sun_bear wis:occursInCountry wis:MY .
+
+wis:sunda_colugo wis:observedIn wis:bukit_timah,
+        wis:central_catchment,
+        wis:taman_negara ;
+    wis:occursInCountry wis:MY,
+        wis:SG .
+
+wis:sunda_pangolin wis:occursInCountry wis:MY,
+        wis:SG .
+
+wis:tiger wis:occursInCountry wis:MY .
+
+wis:wild_boar wis:observedIn wis:bukit_timah,
+        wis:central_catchment,
+        wis:kuala_selangor,
+        wis:pulau_ubin,
+        wis:sungei_buloh,
+        wis:taman_negara ;
+    wis:occursInCountry wis:MY,
+        wis:SG .
+

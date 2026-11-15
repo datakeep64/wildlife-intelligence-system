@@ -10,16 +10,31 @@ PREFIXES = """
 PREFIX wis:  <https://datakeep64.github.io/wis/ontology#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
 """
 
 
-@lru_cache(maxsize=1)
-def load_graph() -> Graph:
+OBS_TTL = SEED_TTL.with_name("observations.ttl")
+
+
+@lru_cache(maxsize=2)
+def load_graph(include_observations: bool = True) -> Graph:
+    """TBox + seed ABox (+ GBIF-reconciled observations). Cached: treat as read-only."""
     g = Graph()
     g.parse(ONTOLOGY_TTL, format="turtle")
     if not SEED_TTL.exists():
         raise FileNotFoundError(f"{SEED_TTL} missing - run: python -m src.reasoning.kg.build_seed")
     g.parse(SEED_TTL, format="turtle")
+    if include_observations and OBS_TTL.exists():
+        g.parse(OBS_TTL, format="turtle")
+    g.bind("wis", WIS)
+    return g
+
+
+def working_copy(include_observations: bool = True) -> Graph:
+    """A mutable copy for rules to write into (never mutate the cached graph)."""
+    g = Graph()
+    g += load_graph(include_observations)
     g.bind("wis", WIS)
     return g
 

@@ -1,0 +1,87 @@
+{
+  "rules": {
+    "min_country_records": 3,
+    "min_zone_records": 2,
+    "radius_km": {
+      "SG": 3.0,
+      "MY": 20.0
+    },
+    "recent": "year >= 2015, human or machine observation"
+  },
+  "recent_records": 6064,
+  "share_records_blurred_over_10km_by_iucn": {
+    "CR": 0.793,
+    "EN": 0.947,
+    "LC": 0.07,
+    "VU": 0.605
+  },
+  "presence_status_counts": {
+    "seed confirmed": 28,
+    "absent in seed and data": 14,
+    "seed, weak data support": 4,
+    "ADDED by data (seed was 'N')": 2,
+    "ADDED by data (seed was '?')": 1,
+    "seed only (unconfirmed by data)": 1
+  },
+  "presence_changes": [
+    {
+      "key": "bearded_pig",
+      "country": "MY",
+      "seed": "?",
+      "recent_records": 4,
+      "status": "ADDED by data (seed was '?')"
+    },
+    {
+      "key": "sambar",
+      "country": "SG",
+      "seed": "N",
+      "recent_records": 92,
+      "status": "ADDED by data (seed was 'N')"
+    },
+    {
+      "key": "red_muntjac",
+      "country": "SG",
+      "seed": "Y",
+      "recent_records": 0,
+      "status": "seed only (unconfirmed by data)"
+    },
+    {
+      "key": "greater_mousedeer",
+      "country": "SG",
+      "seed": "N",
+      "recent_records": 38,
+      "status": "ADDED by data (seed was 'N')"
+    }
+  ],
+  "zone_links_asserted": 31,
+  "zone_links_blocked_by_precision_guard": 25,
+  "asserted_links_by_iucn": {
+    "LC": 17,
+    "EN": 5,
+    "CR": 5,
+    "VU": 4
+  },
+  "cr_zone_links": [
+    {
+      "zone": "bukit_timah",
+      "key": "straw_headed_bulbul"
+    },
+    {
+      "zone": "central_catchment",
+      "key": "straw_headed_bulbul"
+    },
+    {
+      "zone": "sungei_buloh",
+      "key": "straw_headed_bulbul"
+    },
+    {
+      "zone": "pulau_ubin",
+      "key": "straw_headed_bulbul"
+    },
+    {
+      "zone": "taman_negara",
+      "key": "straw_headed_bulbul"
+    }
+  ],
+  "observations_ttl_triples": 67
+}

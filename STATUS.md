@@ -1,6 +1,6 @@
 # STATUS
 
-_Last updated: 2026-11-15 (session 1: Phase A done; Phase B camera-trap experiment done)_
+_Last updated: 2026-11-15 (session 1: Phase A done; Phase B camera-trap experiment and alert rules done)_
 
 ## Components
 
@@ -10,7 +10,7 @@ _Last updated: 2026-11-15 (session 1: Phase A done; Phase B camera-trap experime
 | Data: IUCN status | Done | `data/download_iucn.py` → statuses for 26 taxa via GBIF |
 | Data: LILA camera traps | Done | `data/download_lila.py` → 1,400 WCS images, location-grouped split |
 | Data: GBIF occurrences | Done | `data/download_gbif.py`: 7,062 seed-species records + 65,953 iNaturalist observer records (year-stratified sample) |
-| Ontology KG (schema + seed) | Working (results pending) | `ontology.ttl` (TBox), `species_seed.ttl` (ABox, 435 triples); SPARQL works. Alert rules not written yet |
+| Ontology KG + alert rules | Done | TBox + seed ABox + GBIF reconciliation (`observations.ttl`); 17 SPARQL rules in 5 strata (forward chaining, stratified negation, conflict resolution, explanations); 15 scenario tests; error replay of real camera-trap predictions ([README](src/reasoning/kg/README.md)) |
 | Camera-trap pipeline + experiment | Done | MegaDetector → crop → BioCLIP → zero-shot / logistic regression / kNN on 1,400 images, with a location-grouped split, location bootstrap, few-shot curve and 4 figures ([README](src/perception/camera_trap/README.md)). Person detection on COCO still to do |
 | NLLB translation | Working (results pending) | Module (raw + glossary modes), 20-alert eval set, evaluator; smoke run on 3 alerts × 3 languages done ([outputs](results/translation/outputs.csv)) |
 | Recommender framework | Working (results pending) | Shared `fit/recommend/evaluate`, popularity baseline, knowledge-based recommender with explanations + trail suggestions |
@@ -36,6 +36,16 @@ _Last updated: 2026-11-15 (session 1: Phase A done; Phase B camera-trap experime
   - **MegaDetector at threshold 0.2:** 98.1% animal recall (1,350 animal photos); 88% of empty frames correctly empty (6/50 got a false animal box); 0 false person or vehicle alarms.
   - **Pangolin (open set):** zero-shot named 9/17 correctly. The closed-set probe forced 8/17 into "clouded leopard", because it can't say "new species".
   - **Leopards:** all 20 Lao leopards cluster with the Kenyan ones in embedding space, so the domain gap is small at the representation level (n=20).
+- **Alert rules: error replay** (334 held-out photos → sightings, each followed by a person detection; 38 should be HIGH; [alert_replay.json](results/kg/alert_replay.json)):
+  - **Zero-shot, no review:** 12 false HIGH alerts (HIGH precision 0.76); 5 of them are tapirs called tigers.
+  - **Logistic regression with review at 0.5:** 0 false HIGH (precision 1.00, recall 0.95), with 6% of sightings sent to review.
+  - **Zero-shot is confidently wrong** (22% of its errors at ≥ 0.9 confidence vs 3% for logistic regression). Even with 17% of sightings reviewed, it still raises 3 false HIGH alerts. [alert_tradeoff.png](results/kg/alert_tradeoff.png)
+  - **Review blind spot:** a tiger misread as *wild boar* at 0.34 confidence passed silently, because review only triggers when the *predicted* species is threatened.
+- **GBIF reconciliation** ([reconciliation.json](results/kg/reconciliation.json)):
+  - Data added sambar and greater mouse-deer (SG) and bearded pig (MY).
+  - Red muntjac (SG) is kept but flagged unconfirmed (open world).
+  - **Threatened species' coordinates are blurred:** > 10 km uncertainty for 79% of CR, 95% of EN and 7% of LC records.
+  - The precision guard blocked 25 zone links and allowed 31. Only one CR species (straw-headed bulbul) can be placed in any zone.
 - **IUCN via GBIF:** 25/25 species matched exactly. The Malayan tiger subspecies matched only at a higher rank, so GBIF says EN; a cited override sets it to CR. In the KG, 3 taxa are CR, 6 EN and 9 VU.
 - **Seed presence flags vs GBIF (Singapore):** records since 2015, capped at 600 per region:
   - Sambar: seeded absent, 94 records.
@@ -71,6 +81,11 @@ _Last updated: 2026-11-15 (session 1: Phase A done; Phase B camera-trap experime
 12. **Closed-set probes can't flag unknown species:** 8 of 17 pangolins were confidently called "clouded leopard". Zero-shot with an extra label handles this better (9/17 correct).
 13. **kNN picked k=20, the edge of the search grid.** The grid should be extended.
 14. **MegaDetector puts false "animal" boxes on 12% of empty frames** (6/50) at threshold 0.2.
+15. **Review blind spot** (see results): low-confidence predictions of *non-threatened* species aren't reviewed, so a misread tiger can slip through.
+16. **Zone-level threat data doesn't discriminate.** Every zone has a VU/EN species in the records, so rule A4 makes every person alert at least MEDIUM.
+17. **CR locations are mostly blurred in GBIF,** so the "CR species recorded in this zone" rule (A2) can only use the straw-headed bulbul. The design leans on camera evidence.
+18. **A SPARQL scoping bug** (`FILTER` inside a `UNION` branch) silently disabled the camera part of rules A3 and A4. Scenario tests caught it, and it's fixed.
+19. **Zero-shot confidence is uncalibrated** (softmax temperature 100, my choice). Its review numbers depend on that choice.
 
 ## Decisions made
 
@@ -86,7 +101,7 @@ _Last updated: 2026-11-15 (session 1: Phase A done; Phase B camera-trap experime
 
 ## Next up
 
-1. Write the SPARQL alert rules, plus a GBIF reconciliation rule for presence → `results/kg/`.
-2. ALS and content-based recommenders, compared against popularity and knowledge-based on precision@k / recall@k over the 728 species.
+1. ALS and content-based recommenders, compared against popularity and knowledge-based on precision@k / recall@k over the 728 species.
+2. Close the review blind spot (also review when the runner-up species is threatened), then re-run the replay.
 3. MegaDetector person recall and false positives on a small COCO person/no-person set (domain gap stated).
 4. Small camera-trap follow-ups: an Africa→Laos leopard split, and a wider kNN grid.

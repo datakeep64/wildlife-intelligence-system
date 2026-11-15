@@ -1,0 +1,51 @@
+key,country,seed,recent_records,asserted,status
+tiger,SG,N,0,False,absent in seed and data
+tiger,MY,Y,8,True,seed confirmed
+leopard,SG,N,0,False,absent in seed and data
+leopard,MY,Y,2,True,"seed, weak data support"
+clouded_leopard,SG,N,0,False,absent in seed and data
+clouded_leopard,MY,Y,1,True,"seed, weak data support"
+sun_bear,SG,N,0,False,absent in seed and data
+sun_bear,MY,Y,28,True,seed confirmed
+wild_boar,SG,Y,443,True,seed confirmed
+wild_boar,MY,Y,143,True,seed confirmed
+bearded_pig,SG,N,0,False,absent in seed and data
+bearded_pig,MY,?,4,True,ADDED by data (seed was '?')
+malayan_tapir,SG,?,0,False,absent in seed and data
+malayan_tapir,MY,Y,61,True,seed confirmed
+sambar,SG,N,92,True,ADDED by data (seed was 'N')
+sambar,MY,Y,8,True,seed confirmed
+red_muntjac,SG,Y,0,True,seed only (unconfirmed by data)
+red_muntjac,MY,Y,41,True,seed confirmed
+sunda_pangolin,SG,Y,53,True,seed confirmed
+sunda_pangolin,MY,Y,5,True,seed confirmed
+lesser_mousedeer,SG,Y,451,True,seed confirmed
+lesser_mousedeer,MY,Y,30,True,seed confirmed
+greater_mousedeer,SG,N,38,True,ADDED by data (seed was 'N')
+greater_mousedeer,MY,Y,1,True,"seed, weak data support"
+asian_elephant,SG,N,0,False,absent in seed and data
+asian_elephant,MY,Y,76,True,seed confirmed
+gaur,SG,N,0,False,absent in seed and data
+gaur,MY,Y,5,True,seed confirmed
+dhole,SG,N,0,False,absent in seed and data
+dhole,MY,Y,9,True,seed confirmed
+leopard_cat,SG,Y,1,True,"seed, weak data support"
+leopard_cat,MY,Y,40,True,seed confirmed
+binturong,SG,N,0,False,absent in seed and data
+binturong,MY,Y,8,True,seed confirmed
+masked_palm_civet,SG,N,0,False,absent in seed and data
+masked_palm_civet,MY,Y,30,True,seed confirmed
+pigtailed_macaque,SG,?,0,False,absent in seed and data
+pigtailed_macaque,MY,Y,522,True,seed confirmed
+longtailed_macaque,SG,Y,600,True,seed confirmed
+longtailed_macaque,MY,Y,600,True,seed confirmed
+great_argus,SG,N,0,False,absent in seed and data
+great_argus,MY,Y,600,True,seed confirmed
+malayan_porcupine,SG,?,0,False,absent in seed and data
+malayan_porcupine,MY,Y,8,True,seed confirmed
+smooth_otter,SG,Y,600,True,seed confirmed
+smooth_otter,MY,Y,145,True,seed confirmed
+sunda_colugo,SG,Y,600,True,seed confirmed
+sunda_colugo,MY,Y,158,True,seed confirmed
+straw_headed_bulbul,SG,Y,600,True,seed confirmed
+straw_headed_bulbul,MY,Y,53,True,seed confirmed

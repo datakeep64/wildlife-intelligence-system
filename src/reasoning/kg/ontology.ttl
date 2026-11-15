@@ -127,3 +127,29 @@ wis:MY a wis:Country ; rdfs:label "Peninsular Malaysia"@en .
 wis:HIGH   a wis:AlertPriority ; rdfs:label "High"@en ;   wis:priorityRank 3 .
 wis:MEDIUM a wis:AlertPriority ; rdfs:label "Medium"@en ; wis:priorityRank 2 .
 wis:LOW    a wis:AlertPriority ; rdfs:label "Low"@en ;    wis:priorityRank 1 .
+
+# ------------------------------------------------- rule engine vocabulary
+# Used by rules.py (SPARQL forward chaining, stratified).
+wis:ReviewTask a owl:Class ; rdfs:label "Review task"@en ;
+    rdfs:comment "A sighting a human must check before it can drive alerts (low confidence or implausible)."@en .
+wis:Config a owl:Class ; rdfs:label "Rule configuration"@en .
+wis:config a wis:Config .
+
+wis:predictedTaxon a owl:ObjectProperty ; rdfs:domain wis:AnimalSighting ; rdfs:range wis:Taxon ;
+    rdfs:comment "Raw classifier output, before any reasoning."@en .
+wis:refinedFrom a owl:ObjectProperty ; rdfs:domain wis:AnimalSighting ; rdfs:range wis:Taxon ;
+    rdfs:comment "Set when a rule refined a species-level prediction to a subspecies using location."@en .
+wis:evidence     a owl:ObjectProperty ; rdfs:domain wis:Alert ; rdfs:range wis:Sighting .
+wis:suppressedBy a owl:ObjectProperty ; rdfs:domain wis:Alert ; rdfs:range wis:Alert ;
+    rdfs:comment "Conflict resolution: a higher-priority alert for the same triggering event."@en .
+
+wis:verified       a owl:DatatypeProperty ; rdfs:domain wis:AnimalSighting ; rdfs:range xsd:boolean .
+wis:issue          a owl:DatatypeProperty ; rdfs:domain wis:AnimalSighting ; rdfs:range xsd:string .
+wis:reviewReason   a owl:DatatypeProperty ; rdfs:domain wis:ReviewTask ; rdfs:range xsd:string .
+wis:firedRule      a owl:DatatypeProperty ; rdfs:domain wis:Alert ; rdfs:range xsd:string .
+wis:reason         a owl:DatatypeProperty ; rdfs:domain wis:Alert ; rdfs:range xsd:string .
+wis:epochHours     a owl:DatatypeProperty ; rdfs:domain wis:Sighting ; rdfs:range xsd:decimal .
+wis:hourOfDay      a owl:DatatypeProperty ; rdfs:domain wis:Sighting ; rdfs:range xsd:integer .
+wis:reviewThreshold  a owl:DatatypeProperty ; rdfs:domain wis:Config ; rdfs:range xsd:decimal .
+wis:alertWindowHours a owl:DatatypeProperty ; rdfs:domain wis:Config ; rdfs:range xsd:decimal .
+wis:recordCount    a owl:DatatypeProperty ; rdfs:comment "Number of supporting GBIF records (reconcile.py)."@en .
