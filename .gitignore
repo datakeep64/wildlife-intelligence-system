@@ -31,3 +31,6 @@ results/**/crops/
 
 # Private notes (video script etc.)
 private/
+
+# Run logs (contain local paths)
+results/**/*.log

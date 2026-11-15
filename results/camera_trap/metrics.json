@@ -1,0 +1,1445 @@
+{
+  "model": "hf-hub:imageomics/bioclip",
+  "md_model": "MDV5A",
+  "data": {
+    "n_train": 999,
+    "n_test": 334,
+    "per_class": {
+      "clouded_leopard": {
+        "test": 33,
+        "train": 100
+      },
+      "leopard": {
+        "test": 38,
+        "train": 112
+      },
+      "malayan_tapir": {
+        "test": 37,
+        "train": 113
+      },
+      "pigtailed_macaque": {
+        "test": 38,
+        "train": 112
+      },
+      "red_muntjac": {
+        "test": 38,
+        "train": 112
+      },
+      "sambar": {
+        "test": 37,
+        "train": 113
+      },
+      "sun_bear": {
+        "test": 37,
+        "train": 113
+      },
+      "tiger": {
+        "test": 38,
+        "train": 112
+      },
+      "wild_boar": {
+        "test": 38,
+        "train": 112
+      }
+    },
+    "n_train_locations": 489,
+    "n_test_locations": 160
+  },
+  "triage": {
+    "threshold": 0.2,
+    "animal_images": 1350,
+    "animal_recall": 0.9807,
+    "animal_recall_per_class": {
+      "clouded_leopard": 0.9699,
+      "leopard": 0.9933,
+      "malayan_tapir": 0.96,
+      "pigtailed_macaque": 0.9733,
+      "red_muntjac": 0.9867,
+      "sambar": 0.98,
+      "sun_bear": 0.9933,
+      "sunda_pangolin": 1.0,
+      "tiger": 0.98,
+      "wild_boar": 0.9867
+    },
+    "false_person_on_animal_images": 0,
+    "empty_images": 50,
+    "empty_specificity": 0.88,
+    "false_animal_on_empty": 6,
+    "false_person_on_empty": 0,
+    "false_vehicle_on_empty": 0
+  },
+  "hyperparameters": {
+    "logreg_C": 10.0,
+    "logreg_cv_macro_f1": {
+      "0.1": 0.8584,
+      "1.0": 0.8662,
+      "10.0": 0.8725,
+      "100.0": 0.859
+    },
+    "knn_k": 20,
+    "knn_cv_macro_f1": {
+      "1": 0.8433,
+      "3": 0.8448,
+      "5": 0.8571,
+      "10": 0.8562,
+      "20": 0.8606
+    }
+  },
+  "results": {
+    "zero_shot_taxonomic": {
+      "n": 334,
+      "accuracy": 0.8204,
+      "macro_f1": 0.8219,
+      "per_class": {
+        "tiger": {
+          "precision": 0.76,
+          "recall": 1.0,
+          "f1": 0.8636,
+          "support": 38
+        },
+        "leopard": {
+          "precision": 0.973,
+          "recall": 0.9474,
+          "f1": 0.96,
+          "support": 38
+        },
+        "clouded_leopard": {
+          "precision": 0.8824,
+          "recall": 0.9091,
+          "f1": 0.8955,
+          "support": 33
+        },
+        "sun_bear": {
+          "precision": 0.9032,
+          "recall": 0.7568,
+          "f1": 0.8235,
+          "support": 37
+        },
+        "wild_boar": {
+          "precision": 0.6444,
+          "recall": 0.7632,
+          "f1": 0.6988,
+          "support": 38
+        },
+        "malayan_tapir": {
+          "precision": 0.6429,
+          "recall": 0.7297,
+          "f1": 0.6835,
+          "support": 37
+        },
+        "sambar": {
+          "precision": 0.8919,
+          "recall": 0.8919,
+          "f1": 0.8919,
+          "support": 37
+        },
+        "red_muntjac": {
+          "precision": 1.0,
+          "recall": 0.6316,
+          "f1": 0.7742,
+          "support": 38
+        },
+        "pigtailed_macaque": {
+          "precision": 0.8529,
+          "recall": 0.7632,
+          "f1": 0.8056,
+          "support": 38
+        }
+      },
+      "confusion_matrix": [
+        [
+          38,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          36,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          3,
+          0,
+          30,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          2,
+          28,
+          1,
+          5,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          29,
+          5,
+          2,
+          0,
+          2
+        ],
+        [
+          5,
+          0,
+          1,
+          2,
+          2,
+          27,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          1,
+          2,
+          33,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          5,
+          3,
+          2,
+          24,
+          3
+        ],
+        [
+          2,
+          0,
+          0,
+          1,
+          6,
+          0,
+          0,
+          0,
+          29
+        ]
+      ],
+      "labels": [
+        "tiger",
+        "leopard",
+        "clouded_leopard",
+        "sun_bear",
+        "wild_boar",
+        "malayan_tapir",
+        "sambar",
+        "red_muntjac",
+        "pigtailed_macaque"
+      ],
+      "lookalike_confusion": {
+        "tiger->leopard": 0.0,
+        "leopard->tiger": 0.0263,
+        "tiger->clouded_leopard": 0.0,
+        "clouded_leopard->tiger": 0.0909,
+        "leopard->clouded_leopard": 0.0,
+        "clouded_leopard->leopard": 0.0,
+        "sun_bear->wild_boar": 0.027,
+        "wild_boar->sun_bear": 0.0,
+        "sambar->red_muntjac": 0.0,
+        "red_muntjac->sambar": 0.0526
+      }
+    },
+    "zero_shot_plain": {
+      "n": 334,
+      "accuracy": 0.7784,
+      "macro_f1": 0.7775,
+      "per_class": {
+        "tiger": {
+          "precision": 0.8718,
+          "recall": 0.8947,
+          "f1": 0.8831,
+          "support": 38
+        },
+        "leopard": {
+          "precision": 1.0,
+          "recall": 0.8158,
+          "f1": 0.8986,
+          "support": 38
+        },
+        "clouded_leopard": {
+          "precision": 0.7692,
+          "recall": 0.9091,
+          "f1": 0.8333,
+          "support": 33
+        },
+        "sun_bear": {
+          "precision": 0.6296,
+          "recall": 0.4595,
+          "f1": 0.5312,
+          "support": 37
+        },
+        "wild_boar": {
+          "precision": 0.7381,
+          "recall": 0.8158,
+          "f1": 0.775,
+          "support": 38
+        },
+        "malayan_tapir": {
+          "precision": 0.5532,
+          "recall": 0.7027,
+          "f1": 0.619,
+          "support": 37
+        },
+        "sambar": {
+          "precision": 0.7857,
+          "recall": 0.8919,
+          "f1": 0.8354,
+          "support": 37
+        },
+        "red_muntjac": {
+          "precision": 0.8485,
+          "recall": 0.7368,
+          "f1": 0.7887,
+          "support": 38
+        },
+        "pigtailed_macaque": {
+          "precision": 0.8824,
+          "recall": 0.7895,
+          "f1": 0.8333,
+          "support": 38
+        }
+      },
+      "confusion_matrix": [
+        [
+          34,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          1,
+          31,
+          4,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          30,
+          0,
+          0,
+          3,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          2,
+          17,
+          3,
+          15,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          31,
+          2,
+          1,
+          2,
+          1
+        ],
+        [
+          3,
+          0,
+          0,
+          4,
+          1,
+          26,
+          0,
+          0,
+          3
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          1,
+          1,
+          33,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          2,
+          0,
+          0,
+          7,
+          28,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          2,
+          3,
+          0,
+          1,
+          1,
+          30
+        ]
+      ],
+      "labels": [
+        "tiger",
+        "leopard",
+        "clouded_leopard",
+        "sun_bear",
+        "wild_boar",
+        "malayan_tapir",
+        "sambar",
+        "red_muntjac",
+        "pigtailed_macaque"
+      ],
+      "lookalike_confusion": {
+        "tiger->leopard": 0.0,
+        "leopard->tiger": 0.0263,
+        "tiger->clouded_leopard": 0.0263,
+        "clouded_leopard->tiger": 0.0,
+        "leopard->clouded_leopard": 0.1053,
+        "clouded_leopard->leopard": 0.0,
+        "sun_bear->wild_boar": 0.0811,
+        "wild_boar->sun_bear": 0.0263,
+        "sambar->red_muntjac": 0.027,
+        "red_muntjac->sambar": 0.1842
+      }
+    },
+    "zero_shot_full_image": {
+      "n": 334,
+      "accuracy": 0.7784,
+      "macro_f1": 0.7779,
+      "per_class": {
+        "tiger": {
+          "precision": 0.7551,
+          "recall": 0.9737,
+          "f1": 0.8506,
+          "support": 38
+        },
+        "leopard": {
+          "precision": 0.8537,
+          "recall": 0.9211,
+          "f1": 0.8861,
+          "support": 38
+        },
+        "clouded_leopard": {
+          "precision": 0.7429,
+          "recall": 0.7879,
+          "f1": 0.7647,
+          "support": 33
+        },
+        "sun_bear": {
+          "precision": 0.9643,
+          "recall": 0.7297,
+          "f1": 0.8308,
+          "support": 37
+        },
+        "wild_boar": {
+          "precision": 0.7561,
+          "recall": 0.8158,
+          "f1": 0.7848,
+          "support": 38
+        },
+        "malayan_tapir": {
+          "precision": 0.5952,
+          "recall": 0.6757,
+          "f1": 0.6329,
+          "support": 37
+        },
+        "sambar": {
+          "precision": 0.9375,
+          "recall": 0.8108,
+          "f1": 0.8696,
+          "support": 37
+        },
+        "red_muntjac": {
+          "precision": 0.88,
+          "recall": 0.5789,
+          "f1": 0.6984,
+          "support": 38
+        },
+        "pigtailed_macaque": {
+          "precision": 0.6585,
+          "recall": 0.7105,
+          "f1": 0.6835,
+          "support": 38
+        }
+      },
+      "confusion_matrix": [
+        [
+          37,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        [
+          1,
+          35,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          3,
+          1,
+          26,
+          0,
+          1,
+          1,
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          3,
+          27,
+          0,
+          4,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          31,
+          2,
+          0,
+          1,
+          4
+        ],
+        [
+          5,
+          1,
+          3,
+          0,
+          2,
+          25,
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          2,
+          3,
+          30,
+          0,
+          2
+        ],
+        [
+          0,
+          3,
+          0,
+          0,
+          4,
+          6,
+          0,
+          22,
+          3
+        ],
+        [
+          3,
+          0,
+          1,
+          1,
+          1,
+          1,
+          2,
+          2,
+          27
+        ]
+      ],
+      "labels": [
+        "tiger",
+        "leopard",
+        "clouded_leopard",
+        "sun_bear",
+        "wild_boar",
+        "malayan_tapir",
+        "sambar",
+        "red_muntjac",
+        "pigtailed_macaque"
+      ],
+      "lookalike_confusion": {
+        "tiger->leopard": 0.0,
+        "leopard->tiger": 0.0263,
+        "tiger->clouded_leopard": 0.0,
+        "clouded_leopard->tiger": 0.0909,
+        "leopard->clouded_leopard": 0.0526,
+        "clouded_leopard->leopard": 0.0303,
+        "sun_bear->wild_boar": 0.0,
+        "wild_boar->sun_bear": 0.0,
+        "sambar->red_muntjac": 0.0,
+        "red_muntjac->sambar": 0.0
+      }
+    },
+    "logistic_regression": {
+      "n": 334,
+      "accuracy": 0.9132,
+      "macro_f1": 0.9135,
+      "per_class": {
+        "tiger": {
+          "precision": 0.9474,
+          "recall": 0.9474,
+          "f1": 0.9474,
+          "support": 38
+        },
+        "leopard": {
+          "precision": 0.8974,
+          "recall": 0.9211,
+          "f1": 0.9091,
+          "support": 38
+        },
+        "clouded_leopard": {
+          "precision": 0.9143,
+          "recall": 0.9697,
+          "f1": 0.9412,
+          "support": 33
+        },
+        "sun_bear": {
+          "precision": 0.9459,
+          "recall": 0.9459,
+          "f1": 0.9459,
+          "support": 37
+        },
+        "wild_boar": {
+          "precision": 0.8537,
+          "recall": 0.9211,
+          "f1": 0.8861,
+          "support": 38
+        },
+        "malayan_tapir": {
+          "precision": 0.9459,
+          "recall": 0.9459,
+          "f1": 0.9459,
+          "support": 37
+        },
+        "sambar": {
+          "precision": 0.9412,
+          "recall": 0.8649,
+          "f1": 0.9014,
+          "support": 37
+        },
+        "red_muntjac": {
+          "precision": 0.9118,
+          "recall": 0.8158,
+          "f1": 0.8611,
+          "support": 38
+        },
+        "pigtailed_macaque": {
+          "precision": 0.8718,
+          "recall": 0.8947,
+          "f1": 0.8831,
+          "support": 38
+        }
+      },
+      "confusion_matrix": [
+        [
+          36,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          35,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          32,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          35,
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1,
+          0,
+          35,
+          0,
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0,
+          35,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          2,
+          1,
+          32,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          1,
+          31,
+          4
+        ],
+        [
+          0,
+          1,
+          0,
+          1,
+          0,
+          0,
+          0,
+          2,
+          34
+        ]
+      ],
+      "labels": [
+        "tiger",
+        "leopard",
+        "clouded_leopard",
+        "sun_bear",
+        "wild_boar",
+        "malayan_tapir",
+        "sambar",
+        "red_muntjac",
+        "pigtailed_macaque"
+      ],
+      "lookalike_confusion": {
+        "tiger->leopard": 0.0,
+        "leopard->tiger": 0.0263,
+        "tiger->clouded_leopard": 0.0,
+        "clouded_leopard->tiger": 0.0,
+        "leopard->clouded_leopard": 0.0526,
+        "clouded_leopard->leopard": 0.0,
+        "sun_bear->wild_boar": 0.0,
+        "wild_boar->sun_bear": 0.0,
+        "sambar->red_muntjac": 0.027,
+        "red_muntjac->sambar": 0.0263
+      }
+    },
+    "logistic_regression_full_image": {
+      "n": 334,
+      "accuracy": 0.8713,
+      "macro_f1": 0.8711,
+      "per_class": {
+        "tiger": {
+          "precision": 0.9,
+          "recall": 0.9474,
+          "f1": 0.9231,
+          "support": 38
+        },
+        "leopard": {
+          "precision": 1.0,
+          "recall": 0.9211,
+          "f1": 0.9589,
+          "support": 38
+        },
+        "clouded_leopard": {
+          "precision": 0.8286,
+          "recall": 0.8788,
+          "f1": 0.8529,
+          "support": 33
+        },
+        "sun_bear": {
+          "precision": 0.8611,
+          "recall": 0.8378,
+          "f1": 0.8493,
+          "support": 37
+        },
+        "wild_boar": {
+          "precision": 0.814,
+          "recall": 0.9211,
+          "f1": 0.8642,
+          "support": 38
+        },
+        "malayan_tapir": {
+          "precision": 0.775,
+          "recall": 0.8378,
+          "f1": 0.8052,
+          "support": 37
+        },
+        "sambar": {
+          "precision": 0.8857,
+          "recall": 0.8378,
+          "f1": 0.8611,
+          "support": 37
+        },
+        "red_muntjac": {
+          "precision": 0.9375,
+          "recall": 0.7895,
+          "f1": 0.8571,
+          "support": 38
+        },
+        "pigtailed_macaque": {
+          "precision": 0.8684,
+          "recall": 0.8684,
+          "f1": 0.8684,
+          "support": 38
+        }
+      },
+      "confusion_matrix": [
+        [
+          36,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          35,
+          3,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          29,
+          1,
+          1,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          2,
+          0,
+          0,
+          31,
+          1,
+          3,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          35,
+          1,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          0,
+          1,
+          2,
+          1,
+          31,
+          1,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          2,
+          2,
+          31,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          1,
+          2,
+          1,
+          1,
+          30,
+          2
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          2,
+          1,
+          1,
+          33
+        ]
+      ],
+      "labels": [
+        "tiger",
+        "leopard",
+        "clouded_leopard",
+        "sun_bear",
+        "wild_boar",
+        "malayan_tapir",
+        "sambar",
+        "red_muntjac",
+        "pigtailed_macaque"
+      ],
+      "lookalike_confusion": {
+        "tiger->leopard": 0.0,
+        "leopard->tiger": 0.0,
+        "tiger->clouded_leopard": 0.0,
+        "clouded_leopard->tiger": 0.0303,
+        "leopard->clouded_leopard": 0.0789,
+        "clouded_leopard->leopard": 0.0,
+        "sun_bear->wild_boar": 0.027,
+        "wild_boar->sun_bear": 0.0,
+        "sambar->red_muntjac": 0.027,
+        "red_muntjac->sambar": 0.0263
+      }
+    },
+    "knn": {
+      "n": 334,
+      "accuracy": 0.9132,
+      "macro_f1": 0.9143,
+      "per_class": {
+        "tiger": {
+          "precision": 0.973,
+          "recall": 0.9474,
+          "f1": 0.96,
+          "support": 38
+        },
+        "leopard": {
+          "precision": 0.925,
+          "recall": 0.9737,
+          "f1": 0.9487,
+          "support": 38
+        },
+        "clouded_leopard": {
+          "precision": 0.9412,
+          "recall": 0.9697,
+          "f1": 0.9552,
+          "support": 33
+        },
+        "sun_bear": {
+          "precision": 0.9429,
+          "recall": 0.8919,
+          "f1": 0.9167,
+          "support": 37
+        },
+        "wild_boar": {
+          "precision": 0.7826,
+          "recall": 0.9474,
+          "f1": 0.8571,
+          "support": 38
+        },
+        "malayan_tapir": {
+          "precision": 0.8974,
+          "recall": 0.9459,
+          "f1": 0.9211,
+          "support": 37
+        },
+        "sambar": {
+          "precision": 0.9706,
+          "recall": 0.8919,
+          "f1": 0.9296,
+          "support": 37
+        },
+        "red_muntjac": {
+          "precision": 1.0,
+          "recall": 0.8158,
+          "f1": 0.8986,
+          "support": 38
+        },
+        "pigtailed_macaque": {
+          "precision": 0.8421,
+          "recall": 0.8421,
+          "f1": 0.8421,
+          "support": 38
+        }
+      },
+      "confusion_matrix": [
+        [
+          36,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          37,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          32,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          0,
+          33,
+          1,
+          2,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          1,
+          0,
+          36,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          1,
+          0,
+          35,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          2,
+          1,
+          33,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          1,
+          31,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          4,
+          1,
+          0,
+          0,
+          32
+        ]
+      ],
+      "labels": [
+        "tiger",
+        "leopard",
+        "clouded_leopard",
+        "sun_bear",
+        "wild_boar",
+        "malayan_tapir",
+        "sambar",
+        "red_muntjac",
+        "pigtailed_macaque"
+      ],
+      "lookalike_confusion": {
+        "tiger->leopard": 0.0,
+        "leopard->tiger": 0.0,
+        "tiger->clouded_leopard": 0.0,
+        "clouded_leopard->tiger": 0.0,
+        "leopard->clouded_leopard": 0.0263,
+        "clouded_leopard->leopard": 0.0,
+        "sun_bear->wild_boar": 0.027,
+        "wild_boar->sun_bear": 0.0,
+        "sambar->red_muntjac": 0.0,
+        "red_muntjac->sambar": 0.0263
+      }
+    }
+  },
+  "bootstrap_ci95_by_location": {
+    "zero_shot_taxonomic": {
+      "acc": [
+        0.7578,
+        0.8754
+      ],
+      "f1": [
+        0.7638,
+        0.8688
+      ]
+    },
+    "zero_shot_plain": {
+      "acc": [
+        0.7232,
+        0.8329
+      ],
+      "f1": [
+        0.7199,
+        0.8251
+      ]
+    },
+    "zero_shot_full_image": {
+      "acc": [
+        0.7122,
+        0.8373
+      ],
+      "f1": [
+        0.7105,
+        0.8318
+      ]
+    },
+    "logistic_regression": {
+      "acc": [
+        0.8816,
+        0.9463
+      ],
+      "f1": [
+        0.8783,
+        0.9448
+      ]
+    },
+    "logistic_regression_full_image": {
+      "acc": [
+        0.8323,
+        0.9104
+      ],
+      "f1": [
+        0.8289,
+        0.9069
+      ]
+    },
+    "knn": {
+      "acc": [
+        0.8816,
+        0.9448
+      ],
+      "f1": [
+        0.8808,
+        0.9444
+      ]
+    },
+    "paired_diff_vs_zero_shot": {
+      "zero_shot_plain": {
+        "macro_f1_diff_ci95": [
+          -0.0854,
+          -0.0092
+        ],
+        "share_of_resamples_better": 0.007
+      },
+      "zero_shot_full_image": {
+        "macro_f1_diff_ci95": [
+          -0.0851,
+          -0.005
+        ],
+        "share_of_resamples_better": 0.009
+      },
+      "logistic_regression": {
+        "macro_f1_diff_ci95": [
+          0.0522,
+          0.1377
+        ],
+        "share_of_resamples_better": 1.0
+      },
+      "logistic_regression_full_image": {
+        "macro_f1_diff_ci95": [
+          0.008,
+          0.0922
+        ],
+        "share_of_resamples_better": 0.99
+      },
+      "knn": {
+        "macro_f1_diff_ci95": [
+          0.0496,
+          0.142
+        ],
+        "share_of_resamples_better": 1.0
+      }
+    },
+    "n_test_locations": 160
+  },
+  "md_miss_effect": {
+    "zero_shot_taxonomic": {
+      "acc_md_hit": 0.8303,
+      "acc_md_miss": 0.0
+    },
+    "logistic_regression": {
+      "acc_md_hit": 0.9212,
+      "acc_md_miss": 0.25
+    },
+    "n_md_miss_test": 4
+  },
+  "leopard_by_country_test": {
+    "ken": {
+      "n": 31,
+      "zero_shot_taxonomic": 0.9677,
+      "logistic_regression": 0.9355,
+      "knn": 1.0
+    },
+    "lao": {
+      "n": 3,
+      "zero_shot_taxonomic": 1.0,
+      "logistic_regression": 1.0,
+      "knn": 1.0
+    },
+    "tza": {
+      "n": 4,
+      "zero_shot_taxonomic": 0.75,
+      "logistic_regression": 0.75,
+      "knn": 0.75
+    }
+  },
+  "leopard_train_countries": {
+    "ken": 75,
+    "tza": 20,
+    "lao": 17
+  },
+  "pangolin_open_set": {
+    "n": 17,
+    "zero_shot_10_labels_recall": 0.5294,
+    "zero_shot_10_labels_predictions": {
+      "sunda_pangolin": 9,
+      "malayan_tapir": 5,
+      "pigtailed_macaque": 1,
+      "tiger": 1,
+      "clouded_leopard": 1
+    },
+    "logistic_regression_forced_into": {
+      "clouded_leopard": 8,
+      "wild_boar": 5,
+      "pigtailed_macaque": 3,
+      "sun_bear": 1
+    },
+    "false_pangolin_on_9class_test": 0,
+    "zero_shot_9class_test_acc_with_pangolin_label": 0.8204
+  },
+  "few_shot_macro_f1": [
+    {
+      "model": "knn",
+      "shots": 1,
+      "mean": 0.5753,
+      "std": 0.1384
+    },
+    {
+      "model": "knn",
+      "shots": 2,
+      "mean": 0.7495,
+      "std": 0.0408
+    },
+    {
+      "model": "knn",
+      "shots": 5,
+      "mean": 0.8201,
+      "std": 0.0266
+    },
+    {
+      "model": "knn",
+      "shots": 10,
+      "mean": 0.8459,
+      "std": 0.0331
+    },
+    {
+      "model": "knn",
+      "shots": 20,
+      "mean": 0.8809,
+      "std": 0.0079
+    },
+    {
+      "model": "knn",
+      "shots": 50,
+      "mean": 0.894,
+      "std": 0.0098
+    },
+    {
+      "model": "logistic_regression",
+      "shots": 1,
+      "mean": 0.5799,
+      "std": 0.1339
+    },
+    {
+      "model": "logistic_regression",
+      "shots": 2,
+      "mean": 0.7771,
+      "std": 0.0347
+    },
+    {
+      "model": "logistic_regression",
+      "shots": 5,
+      "mean": 0.8618,
+      "std": 0.0193
+    },
+    {
+      "model": "logistic_regression",
+      "shots": 10,
+      "mean": 0.8705,
+      "std": 0.0196
+    },
+    {
+      "model": "logistic_regression",
+      "shots": 20,
+      "mean": 0.8916,
+      "std": 0.0105
+    },
+    {
+      "model": "logistic_regression",
+      "shots": 50,
+      "mean": 0.9007,
+      "std": 0.0075
+    }
+  ],
+  "embedding": {
+    "silhouette_cosine_crop": 0.1998,
+    "silhouette_cosine_full_image": 0.16,
+    "pca_explained_variance_top10": [
+      0.1199,
+      0.0728,
+      0.0628,
+      0.0521,
+      0.0439,
+      0.0409,
+      0.0314,
+      0.0293,
+      0.0225,
+      0.0184
+    ]
+  }
+}
