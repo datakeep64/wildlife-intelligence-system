@@ -5,8 +5,8 @@ Three KG types, each chosen for a different job:
 | KG | Tech | Why this type | Status |
 |---|---|---|---|
 | **Ontology KG** | RDF/OWL, rdflib, SPARQL | Curated facts and rules need explicit semantics: classes, a defined class (`ThreatenedTaxon`), and status ranks that rules can compare. | Built: schema, seed, GBIF reconciliation, alert rules |
-| **Property graph** | NetworkX | Occurrence data is large, messy and relational (who saw what, where, when). Graph analytics such as co-occurrence fit it better than OWL. | Not started |
-| **Embedding KG** | PyKEEN (TransE vs another model) | Predicts *missing* species–habitat links that nobody curated. Extends my TransE/UMLS assignment. | Not started |
+| **Property graph** | NetworkX | Occurrence data is large, messy and relational (who saw what, where, when). Graph analytics such as co-occurrence fit it better than OWL. | Built ([graph/](../graph/README.md)) |
+| **Embedding KG** | PyKEEN (TransE vs another model) | Predicts *missing* species–habitat links that nobody curated. Extends my TransE/UMLS assignment. | In progress ([graph/](../graph/README.md)) |
 
 ## Files
 - `ontology.ttl`: **TBox** (schema). Taxa, habitats, IUCN status (with ordinal `statusRank`), threats, zones, sightings, alerts, review tasks, and the rule-engine vocabulary.

@@ -1,6 +1,6 @@
 # STATUS
 
-_Last updated: 2026-11-15 (session 1: Phase A done; Phase B camera-trap experiment, alert rules and recommender comparison done)_
+_Last updated: 2026-11-15 (session 1: Phase A done; Phase B camera-trap experiment, alert rules and recommender comparison done; property graph + link prediction in progress, paused mid-tuning)_
 
 ## Components
 
@@ -14,8 +14,8 @@ _Last updated: 2026-11-15 (session 1: Phase A done; Phase B camera-trap experime
 | Camera-trap pipeline + experiment | Done | MegaDetector → crop → BioCLIP → zero-shot / logistic regression / kNN on 1,400 images, with a location-grouped split, location bootstrap, few-shot curve and 4 figures ([README](src/perception/camera_trap/README.md)). Person detection on COCO still to do |
 | NLLB translation | Working (results pending) | Module (raw + glossary modes), 20-alert eval set, evaluator; smoke run on 3 alerts × 3 languages done ([outputs](results/translation/outputs.csv)) |
 | Recommenders + comparison | Done | Popularity (global, by country), knowledge-based (2 variants), ALS, content (taxonomy, BioCLIP), switching hybrid; time-based split with a validation stage; per-segment results and 2 figures ([README](src/reasoning/recsys/README.md)). Trail suggestions built but not evaluated |
-| Property graph | Not started | Phase B |
-| Embedding KG (PyKEEN) | Not started | Phase B (pykeen installed) |
+| Property graph | Working | `src/reasoning/graph/property_graph.py`: GBIF records → 0.1° squares (~11 km) → NetworkX graph (species, squares, taxonomy, region, IUCN status, curated habitats); survey-effort and co-occurrence analytics done |
+| Embedding KG (PyKEEN) | In progress (paused) | Link prediction code, 3 baselines, filtered ranking and 5 tests done. Tuning paused at 24/48 validation runs (all TransE), cached and resumable. No test results yet ([README](src/reasoning/graph/README.md)) |
 | Bioacoustics (optional) | Not started | |
 | Integration loop | Not started | Phase C |
 | Portfolio demo page | Not started | Phase C |
@@ -68,6 +68,14 @@ _Last updated: 2026-11-15 (session 1: Phase A done; Phase B camera-trap experime
   - **3,117 observers (47%) recorded only one species**; 1,353 recorded 5 or more.
   - Coverage: all SG and PenMY mammal records were downloaded (14,866 and 11,091). Birds were sampled at 20,000 of 137,518 (SG) and 19,996 of 53,394 (PenMY), allocated across years in proportion.
   - This is the cold-start problem in numbers, and the case for a switching hybrid.
+- **Property graph** (all years; [README](src/reasoning/graph/README.md)):
+  - The precision guard dropped **28%** of records (18,268), because their location is blurred by more than half a square (5.5 km).
+  - 46,715 records kept: 580 species, 548 squares, 7,477 species–square links, 1,128 nodes, 9,863 edges.
+  - **Survey effort is extremely concentrated: 89% of records come from 10% of squares.** The median square holds 4 species, and 159 squares hold only one. The species count of a square correlates 0.87 with its (log) record count, so "species-rich" here mostly means "well surveyed".
+  - 25,981 species pairs share 3 or more squares. The top non-threatened pairs are in [top_cooccurrence.csv](results/graph/top_cooccurrence.csv).
+- **Link prediction, preliminary** (validation only: train ≤ 2023, predict the 887 links first recorded in 2024; untuned single runs, not final):
+  - Hits@10: popularity 0.17, spatial neighbour 0.20, co-occurrence (k=25) 0.24. The best TransE run reached 0.26.
+  - So far the embeddings are roughly level with the co-occurrence baseline. Final numbers will come from the 2025–26 test with 5 seeds.
 - **Knowledge-based recommender** (Sungei Buloh, threatened-first) → smooth-coated otter, straw-headed bulbul, long-tailed macaque. Each comes with reasons. No precision@k yet, because evaluation needs the observer data.
 
 ## Known issues / failures found
@@ -95,6 +103,9 @@ _Last updated: 2026-11-15 (session 1: Phase A done; Phase B camera-trap experime
 21. **ALS tuning hit the edge of the grid** (regularisation 100). The best ALS behaves almost like popularity.
 22. **Trail suggestions are unevaluated.** There's no ground truth for zone visits, and threatened-species coordinates are blurred.
 23. **The "recorded next" target favours common species** by design, which helps popularity.
+24. **Link prediction can't score never-seen species or squares.** On validation, 48 of 1,082 new links involve a species not yet in the graph, and 147 a square not yet in it. These are counted, not hidden.
+25. **The precision guard removes most threatened-species records** (they are blurred), so the occurrence graph under-represents exactly the species the alerts care about.
+26. **The TransE epoch grid is too short:** 9 of 24 runs were still improving at 150 epochs. Extend it before resuming.
 
 ## Decisions made
 
@@ -102,6 +113,8 @@ _Last updated: 2026-11-15 (session 1: Phase A done; Phase B camera-trap experime
   - Camera-trap experiment: 9 WCS classes (SE Asia; leopards from all countries), up to 150 images per class, BioCLIP v1 as the primary model.
   - **Person detection:** evaluated on non-camera-trap public images of people, such as COCO. The domain gap (daylight, framed photos, no IR) will be stated explicitly.
   - **Recommender items:** species, across the shared 728-species catalogue. Trails are derived from species scores.
+  - **Link prediction:** target = species–square links first recorded in 2025–26 (train ≤ 2024; tuning on 2024). TransE vs RotatE. Three non-embedding baselines (popularity, co-occurrence neighbours, spatial neighbour). The curated `livesIn` links (72) are too few to test on.
+  - **Privacy:** threatened species (VU/EN/CR) are left out of every per-square output.
 
 ## Blocked on me
 
@@ -110,7 +123,7 @@ _Last updated: 2026-11-15 (session 1: Phase A done; Phase B camera-trap experime
 
 ## Next up
 
-1. Property graph (co-occurrence) and PyKEEN link prediction (TransE vs another model) on held-out `livesIn` triples.
+1. **Resume link prediction:** extend `EPOCHS` in `src/reasoning/graph/experiment.py` to 300 (see issue 26; the cached runs then need re-running only for the longer epochs, or clear `data/cache/graph_val_grid.json`), then run `python -m src.reasoning.graph.experiment` (~45 min on CPU). After that: charts (comparison by square density, ablation, example map of an LC species), README results, portfolio section.
 2. Optional recommender follow-up: a weighted hybrid (ALS or BioCLIP-content blended with popularity, weight tuned on validation).
 3. MegaDetector person recall and false positives on a small COCO person/no-person set (domain gap stated).
 4. Small camera-trap follow-ups: an Africa→Laos leopard split, and a wider kNN grid.

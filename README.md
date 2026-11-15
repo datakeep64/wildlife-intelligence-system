@@ -47,8 +47,8 @@ flowchart LR
 | Multilingual alerts | [src/perception/translation](src/perception/translation) | sequence models, MT evaluation (chrF, back-translation) | see STATUS |
 | Bioacoustics (optional) | [src/perception/bioacoustics](src/perception/bioacoustics) | audio classification (BirdNET) | not started |
 | Ontology KG + rules | [src/reasoning/kg](src/reasoning/kg) | knowledge representation, OWL, SPARQL, rule-based reasoning | see STATUS |
-| Property graph | src/reasoning/kg | graph analytics (co-occurrence) | Phase B |
-| Embedding KG | src/reasoning/kg | KG embeddings (TransE vs another model), link prediction | Phase B |
+| Property graph | [src/reasoning/graph](src/reasoning/graph) | graph analytics (survey effort, co-occurrence) | see STATUS |
+| Embedding KG | [src/reasoning/graph](src/reasoning/graph) | KG embeddings (TransE vs RotatE), link prediction vs graph baselines | in progress |
 | Recommenders | [src/reasoning/recsys](src/reasoning/recsys) | knowledge-based vs collaborative vs content-based vs hybrid | see STATUS |
 | Integration loop + demo | [src/integration](src/integration) | AI systems: components feeding each other | Phase C |
 
