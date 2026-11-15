@@ -97,6 +97,10 @@ class KnowledgeBasedRecommender(Recommender):
             if pref_h & s["habitats"]:
                 score += self.w_habitat * len(pref_h & s["habitats"]) / len(pref_h)
                 reasons.append(f"matches your interest in {', '.join(sorted(pref_h & s['habitats']))}")
+            if ctx.get("prefer_generalists"):
+                # knowledge-derived proxy for "likely to be encountered": species of many habitats
+                score += self.w_habitat * len(s["habitats"]) / 8
+                reasons.append(f"lives in {len(s['habitats'])} habitat types")
             if ctx.get("prefer_threatened") and s["rank"] >= 2:
                 score += self.w_status * s["rank"] / 4
                 reasons.append(f"IUCN {s['code']}")
