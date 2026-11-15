@@ -31,7 +31,7 @@ wis:Country       a owl:Class ; rdfs:label "Country"@en .
 
 wis:CameraTrap a owl:Class ; rdfs:label "Camera trap"@en .
 
-# A Sighting is the hand-off point from perception (PRS) to reasoning (IRS).
+# A Sighting is the hand-off point from perception to reasoning.
 wis:Sighting          a owl:Class ; rdfs:label "Sighting"@en .
 wis:AnimalSighting    a owl:Class ; rdfs:subClassOf wis:Sighting ; rdfs:label "Animal sighting"@en .
 wis:PersonDetection   a owl:Class ; rdfs:subClassOf wis:Sighting ; rdfs:label "Person detection"@en ;

@@ -1,4 +1,4 @@
-# Camera-trap triage + species classification (PRS)
+# Camera-trap triage + species classification
 
 ## What it does
 `image → MegaDetector v5a → crop → BioCLIP embedding → species → sighting record`
@@ -12,7 +12,7 @@
    - kNN
 5. **Sighting** (`pipeline.py`). Each frame becomes a JSON record whose fields map to `wis:Sighting` in the ontology. This is the hand-off to the reasoning half.
 
-## Course concepts (PRS)
+## Concepts demonstrated
 - **Transfer learning and representations:** a foundation model trained on the Tree of Life is reused with no fine-tuning.
 - **Zero-shot vs supervised:** does a small labelled set (about 110 images per class) beat text prompts on the *same* features? A gain from the probe means the representation separates the classes, but the prompts point to the wrong places.
 - **Honest evaluation:**

@@ -1,4 +1,4 @@
-# Recommenders (IRS)
+# Recommenders
 
 The architecture is chosen per scenario, and all are scored by the same `evaluate()` (precision@k, recall@k, hit-rate@k, coverage) on the same split.
 

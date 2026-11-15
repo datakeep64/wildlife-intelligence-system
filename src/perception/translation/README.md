@@ -1,4 +1,4 @@
-# Multilingual alerts with NLLB-200 (PRS)
+# Multilingual alerts with NLLB-200
 
 ## What it does
 Translates sighting and intrusion alerts from English into **Malay (zsm_Latn)**, **Tamil (tam_Taml)** and **Simplified Chinese (zho_Hans)** with `facebook/nllb-200-distilled-600M`.
@@ -17,7 +17,7 @@ There are two modes (`nllb.py`):
   - place-name preservation
   - placeholder survival
 
-## Course concepts (PRS)
+## Concepts demonstrated
 - Sequence-to-sequence models and multilingual MT.
 - Evaluation without and with references. Back-translation is a *weak* signal: it rewards literal output and can hide errors that survive the round trip.
 

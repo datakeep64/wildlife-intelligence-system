@@ -1,4 +1,4 @@
-# Knowledge graphs (IRS)
+# Knowledge graphs
 
 Three KG types, each chosen for a different job:
 
@@ -14,7 +14,7 @@ Three KG types, each chosen for a different job:
 - `build_seed.py`: builds the **ABox** (`species_seed.ttl`) from the CSVs plus IUCN data. Seed facts I'm unsure of are marked `?` and are *not* asserted (open-world assumption), so GBIF data can confirm or reject them.
 - `graph.py`: loads TBox + ABox and runs SPARQL helpers.
 
-## Course concepts (IRS)
+## Concepts demonstrated
 - Knowledge representation: TBox vs ABox, OWL defined classes, the open-world assumption.
 - Rule-based reasoning (Phase B): *CR taxon observed in zone Z* AND *person detected in Z within T hours* → HIGH alert.
 - Curated vs automatically collected knowledge (see the findings below).

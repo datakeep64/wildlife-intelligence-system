@@ -5,8 +5,8 @@ Raw camera-trap images go in. Prioritised, multilingual alerts and visitor trail
 
 It has two halves that feed each other:
 
-- **Perception (Pattern Recognition Systems):** turns raw signals into *sightings*. This half uses MegaDetector triage, BioCLIP species classification and NLLB-200 translation.
-- **Reasoning (Intelligent Reasoning Systems):** turns sightings into *decisions*. This half uses three kinds of knowledge graph, rule-based alerts and recommenders chosen per scenario.
+- **Perception:** turns raw signals into *sightings*. This half uses MegaDetector triage, BioCLIP species classification and NLLB-200 translation.
+- **Reasoning:** turns sightings into *decisions*. This half uses three kinds of knowledge graph, rule-based alerts and recommenders chosen per scenario.
 
 > Portfolio project for my NUS-ISS MTech (AI Systems) application. It is a learning system, not a product.
 > Results are reported honestly, failures included. See [STATUS.md](STATUS.md) for what is built and measured so far,
@@ -16,14 +16,14 @@ It has two halves that feed each other:
 
 ```mermaid
 flowchart LR
-  subgraph PRS["Perception (PRS)"]
+  subgraph PER["Perception"]
     CT[Camera-trap image] --> MD[MegaDetector v5a<br/>animal / person / vehicle / empty]
     MD -- animal crop --> BC[BioCLIP embeddings<br/>zero-shot vs linear probe]
     MD -- person / vehicle --> INT[Intrusion signal]
     BC --> S[Sighting]
     INT --> S
   end
-  subgraph IRS["Reasoning (IRS)"]
+  subgraph REA["Reasoning"]
     S --> OKG[(Ontology KG<br/>RDF/OWL + SPARQL)]
     OKG --> RULES{Rules<br/>CR species + person<br/>in same zone}
     GBIF[GBIF / iNaturalist<br/>occurrences] --> PG[(Property graph<br/>NetworkX)]
@@ -41,15 +41,15 @@ flowchart LR
 
 ## Components
 
-| Component | Folder | Course concept | Status |
+| Component | Folder | Concepts | Status |
 |---|---|---|---|
-| Camera-trap triage + classification | [src/perception/camera_trap](src/perception/camera_trap) | PRS: transfer learning, zero-shot vs supervised probe, honest evaluation | see STATUS |
-| Multilingual alerts | [src/perception/translation](src/perception/translation) | PRS: sequence models, MT evaluation (chrF, back-translation) | see STATUS |
-| Bioacoustics (optional) | [src/perception/bioacoustics](src/perception/bioacoustics) | PRS: audio classification (BirdNET) | not started |
-| Ontology KG + rules | [src/reasoning/kg](src/reasoning/kg) | IRS: knowledge representation, OWL, SPARQL, rule-based reasoning | see STATUS |
-| Property graph | src/reasoning/kg | IRS: graph analytics (co-occurrence) | Phase B |
-| Embedding KG | src/reasoning/kg | IRS: KG embeddings (TransE vs another model), link prediction | Phase B |
-| Recommenders | [src/reasoning/recsys](src/reasoning/recsys) | IRS: knowledge-based vs collaborative vs content-based vs hybrid | see STATUS |
+| Camera-trap triage + classification | [src/perception/camera_trap](src/perception/camera_trap) | transfer learning, zero-shot vs supervised probe, honest evaluation | see STATUS |
+| Multilingual alerts | [src/perception/translation](src/perception/translation) | sequence models, MT evaluation (chrF, back-translation) | see STATUS |
+| Bioacoustics (optional) | [src/perception/bioacoustics](src/perception/bioacoustics) | audio classification (BirdNET) | not started |
+| Ontology KG + rules | [src/reasoning/kg](src/reasoning/kg) | knowledge representation, OWL, SPARQL, rule-based reasoning | see STATUS |
+| Property graph | src/reasoning/kg | graph analytics (co-occurrence) | Phase B |
+| Embedding KG | src/reasoning/kg | KG embeddings (TransE vs another model), link prediction | Phase B |
+| Recommenders | [src/reasoning/recsys](src/reasoning/recsys) | knowledge-based vs collaborative vs content-based vs hybrid | see STATUS |
 | Integration loop + demo | [src/integration](src/integration) | AI systems: components feeding each other | Phase C |
 
 ## Setup

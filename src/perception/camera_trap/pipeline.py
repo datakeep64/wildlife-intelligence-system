@@ -1,7 +1,7 @@
 """End-to-end camera-trap triage: image -> MegaDetector -> crop -> BioCLIP -> sighting.
 
-Each output record is a *sighting* - the hand-off object from perception (PRS)
-to reasoning (IRS). Its fields map onto wis:Sighting in the ontology.
+Each output record is a *sighting* - the hand-off object from perception
+to reasoning. Its fields map onto wis:Sighting in the ontology.
 
 Usage:
   .venv/bin/python -m src.perception.camera_trap.pipeline IMG [IMG ...] [--camera CT01 --zone taman_negara]
