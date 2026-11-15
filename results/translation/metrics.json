@@ -1,0 +1,26 @@
+{
+  "ms": {
+    "n": 3,
+    "backtrans_chrf_mean": 55.38,
+    "raw_species_name_hit_rate": 0.0,
+    "raw_place_preserved_rate": 0.333,
+    "glossary_placeholder_survival": 1.0,
+    "chrf_vs_ref": "no human references yet"
+  },
+  "ta": {
+    "n": 3,
+    "backtrans_chrf_mean": 62.44,
+    "raw_species_name_hit_rate": null,
+    "raw_place_preserved_rate": 0.0,
+    "glossary_placeholder_survival": 1.0,
+    "chrf_vs_ref": "no human references yet"
+  },
+  "zh": {
+    "n": 3,
+    "backtrans_chrf_mean": 39.2,
+    "raw_species_name_hit_rate": 0.0,
+    "raw_place_preserved_rate": 0.333,
+    "glossary_placeholder_survival": 0.0,
+    "chrf_vs_ref": "no human references yet"
+  }
+}

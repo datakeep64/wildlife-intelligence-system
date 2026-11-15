@@ -1,0 +1,474 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix wis: <https://datakeep64.github.io/wis/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+wis:asian_elephant a wis:Species ;
+    rdfs:label "Asian elephant"@en,
+        "gajah"@ms,
+        "亚洲象"@zh ;
+    wis:hasIUCNStatus wis:EN ;
+    wis:livesIn wis:forest_edge,
+        wis:lowland_forest,
+        wis:secondary_forest ;
+    wis:occursInCountry wis:MY ;
+    wis:scientificName "Elephas maximus" ;
+    wis:statusSource "GBIF/IUCN" ;
+    wis:threatenedBy wis:habitat_loss,
+        wis:human_wildlife_conflict ;
+    wis:wcsLabel "elephas maximus" .
+
+wis:bearded_pig a wis:Species ;
+    rdfs:label "Bearded pig"@en,
+        "babi berjanggut"@ms,
+        "须猪"@zh ;
+    wis:hasIUCNStatus wis:VU ;
+    wis:livesIn wis:lowland_forest,
+        wis:peat_swamp ;
+    wis:scientificName "Sus barbatus" ;
+    wis:statusSource "GBIF/IUCN" ;
+    wis:threatenedBy wis:habitat_loss,
+        wis:poaching ;
+    wis:wcsLabel "sus barbatus" .
+
+wis:binturong a wis:Species ;
+    rdfs:label "Binturong"@en,
+        "binturung"@ms,
+        "熊狸"@zh ;
+    wis:hasIUCNStatus wis:VU ;
+    wis:livesIn wis:hill_montane_forest,
+        wis:lowland_forest ;
+    wis:occursInCountry wis:MY ;
+    wis:scientificName "Arctictis binturong" ;
+    wis:statusSource "GBIF/IUCN" ;
+    wis:threatenedBy wis:habitat_loss,
+        wis:illegal_wildlife_trade ;
+    wis:wcsLabel "arctictis binturong" .
+
+wis:bukit_timah a wis:ProtectedArea ;
+    rdfs:label "Bukit Timah Nature Reserve"@en ;
+    wis:hasHabitat wis:lowland_forest,
+        wis:secondary_forest ;
+    wis:inCountry wis:SG ;
+    wis:lat 1.3546 ;
+    wis:lon 103.7764 ;
+    wis:zoneType "nature_reserve" .
+
+wis:central_catchment a wis:ProtectedArea ;
+    rdfs:label "Central Catchment Nature Reserve"@en ;
+    wis:hasHabitat wis:lowland_forest,
+        wis:secondary_forest,
+        wis:wetland ;
+    wis:inCountry wis:SG ;
+    wis:lat 1.3600 ;
+    wis:lon 103.8100 ;
+    wis:zoneType "nature_reserve" .
+
+wis:clouded_leopard a wis:Species ;
+    rdfs:label "Clouded leopard"@en,
+        "harimau dahan"@ms,
+        "云豹"@zh ;
+    wis:hasIUCNStatus wis:VU ;
+    wis:livesIn wis:hill_montane_forest,
+        wis:lowland_forest ;
+    wis:occursInCountry wis:MY ;
+    wis:scientificName "Neofelis nebulosa" ;
+    wis:statusSource "GBIF/IUCN" ;
+    wis:threatenedBy wis:habitat_loss,
+        wis:poaching ;
+    wis:wcsLabel "neofelis nebulosa" .
+
+wis:dhole a wis:Species ;
+    rdfs:label "Dhole"@en,
+        "anjing hutan"@ms,
+        "豺"@zh ;
+    wis:hasIUCNStatus wis:EN ;
+    wis:livesIn wis:hill_montane_forest,
+        wis:lowland_forest ;
+    wis:occursInCountry wis:MY ;
+    wis:scientificName "Cuon alpinus" ;
+    wis:statusSource "GBIF/IUCN" ;
+    wis:threatenedBy wis:habitat_loss,
+        wis:human_wildlife_conflict ;
+    wis:wcsLabel "cuon alpinus" .
+
+wis:endau_rompin a wis:ProtectedArea ;
+    rdfs:label "Endau-Rompin National Park"@en ;
+    wis:hasHabitat wis:hill_montane_forest,
+        wis:lowland_forest,
+        wis:peat_swamp ;
+    wis:inCountry wis:MY ;
+    wis:lat 2.5300 ;
+    wis:lon 103.3800 ;
+    wis:zoneType "national_park" .
+
+wis:gaur a wis:Species ;
+    rdfs:label "Gaur"@en,
+        "seladang"@ms,
+        "印度野牛"@zh ;
+    wis:hasIUCNStatus wis:VU ;
+    wis:livesIn wis:forest_edge,
+        wis:lowland_forest ;
+    wis:occursInCountry wis:MY ;
+    wis:scientificName "Bos gaurus" ;
+    wis:statusSource "GBIF/IUCN" ;
+    wis:threatenedBy wis:habitat_loss,
+        wis:poaching ;
+    wis:wcsLabel "bos gaurus" .
+
+wis:great_argus a wis:Species ;
+    rdfs:label "Great argus"@en,
+        "kuang raya"@ms,
+        "青鸾"@zh ;
+    wis:hasIUCNStatus wis:VU ;
+    wis:livesIn wis:hill_montane_forest,
+        wis:lowland_forest ;
+    wis:occursInCountry wis:MY ;
+    wis:scientificName "Argusianus argus" ;
+    wis:statusSource "GBIF/IUCN" ;
+    wis:threatenedBy wis:habitat_loss,
+        wis:poaching ;
+    wis:wcsLabel "argusianus argus" .
+
+wis:greater_mousedeer a wis:Species ;
+    rdfs:label "Greater mouse-deer"@en,
+        "napuh"@ms,
+        "大鼷鹿"@zh ;
+    wis:hasIUCNStatus wis:LC ;
+    wis:livesIn wis:lowland_forest,
+        wis:peat_swamp ;
+    wis:occursInCountry wis:MY ;
+    wis:scientificName "Tragulus napu" ;
+    wis:statusSource "GBIF/IUCN" ;
+    wis:threatenedBy wis:poaching ;
+    wis:wcsLabel "tragulus napu" .
+
+wis:krau a wis:ProtectedArea ;
+    rdfs:label "Krau Wildlife Reserve"@en ;
+    wis:hasHabitat wis:forest_edge,
+        wis:lowland_forest ;
+    wis:inCountry wis:MY ;
+    wis:lat 3.7200 ;
+    wis:lon 102.1800 ;
+    wis:zoneType "wildlife_reserve" .
+
+wis:kuala_selangor a wis:ProtectedArea ;
+    rdfs:label "Kuala Selangor Nature Park"@en ;
+    wis:hasHabitat wis:forest_edge,
+        wis:mangrove,
+        wis:wetland ;
+    wis:inCountry wis:MY ;
+    wis:lat 3.3400 ;
+    wis:lon 101.2400 ;
+    wis:zoneType "nature_park" .
+
+wis:leopard a wis:Species ;
+    rdfs:label "Leopard"@en,
+        "harimau bintang"@ms,
+        "豹"@zh ;
+    wis:hasIUCNStatus wis:VU ;
+    wis:livesIn wis:hill_montane_forest,
+        wis:lowland_forest,
+        wis:secondary_forest ;
+    wis:occursInCountry wis:MY ;
+    wis:scientificName "Panthera pardus" ;
+    wis:statusSource "GBIF/IUCN" ;
+    wis:threatenedBy wis:habitat_loss,
+        wis:poaching ;
+    wis:wcsLabel "panthera pardus" .
+
+wis:leopard_cat a wis:Species ;
+    rdfs:label "Leopard cat"@en,
+        "kucing batu"@ms,
+        "豹猫"@zh ;
+    wis:hasIUCNStatus wis:LC ;
+    wis:livesIn wis:forest_edge,
+        wis:lowland_forest,
+        wis:secondary_forest ;
+    wis:occursInCountry wis:MY,
+        wis:SG ;
+    wis:scientificName "Prionailurus bengalensis" ;
+    wis:statusSource "GBIF/IUCN" ;
+    wis:threatenedBy wis:roadkill ;
+    wis:wcsLabel "prionailurus bengalensis" .
+
+wis:lesser_mousedeer a wis:Species ;
+    rdfs:label "Lesser mouse-deer"@en,
+        "kancil"@ms,
+        "小鼷鹿"@zh ;
+    wis:hasIUCNStatus wis:LC ;
+    wis:livesIn wis:lowland_forest,
+        wis:mangrove,
+        wis:secondary_forest ;
+    wis:occursInCountry wis:MY,
+        wis:SG ;
+    wis:scientificName "Tragulus kanchil" ;
+    wis:statusSource "GBIF/IUCN" ;
+    wis:threatenedBy wis:poaching ;
+    wis:wcsLabel "tragulus kanchil" .
+
+wis:longtailed_macaque a wis:Species ;
+    rdfs:label "Long-tailed macaque"@en,
+        "kera"@ms,
+        "食蟹猴"@zh ;
+    wis:hasIUCNStatus wis:EN ;
+    wis:livesIn wis:forest_edge,
+        wis:mangrove,
+        wis:secondary_forest,
+        wis:urban_green ;
+    wis:occursInCountry wis:MY,
+        wis:SG ;
+    wis:scientificName "Macaca fascicularis" ;
+    wis:statusSource "GBIF/IUCN" ;
+    wis:threatenedBy wis:human_wildlife_conflict,
+        wis:illegal_wildlife_trade .
+
+wis:malayan_porcupine a wis:Species ;
+    rdfs:label "Malayan porcupine"@en,
+        "landak raya"@ms,
+        "马来豪猪"@zh ;
+    wis:hasIUCNStatus wis:LC ;
+    wis:livesIn wis:forest_edge,
+        wis:lowland_forest,
+        wis:secondary_forest ;
+    wis:occursInCountry wis:MY ;
+    wis:scientificName "Hystrix brachyura" ;
+    wis:statusSource "GBIF/IUCN" ;
+    wis:threatenedBy wis:poaching ;
+    wis:wcsLabel "hystrix brachyura" .
+
+wis:malayan_tapir a wis:Species ;
+    rdfs:label "Malayan tapir"@en,
+        "tenuk"@ms,
+        "马来貘"@zh ;
+    wis:hasIUCNStatus wis:EN ;
+    wis:livesIn wis:hill_montane_forest,
+        wis:lowland_forest,
+        wis:peat_swamp,
+        wis:secondary_forest ;
+    wis:occursInCountry wis:MY ;
+    wis:scientificName "Tapirus indicus" ;
+    wis:statusSource "GBIF/IUCN" ;
+    wis:threatenedBy wis:habitat_loss,
+        wis:roadkill ;
+    wis:wcsLabel "tapirus indicus" .
+
+wis:malayan_tiger a wis:Subspecies ;
+    rdfs:label "Malayan tiger"@en,
+        "harimau Malaya"@ms,
+        "马来亚虎"@zh ;
+    wis:hasIUCNStatus wis:CR ;
+    wis:livesIn wis:hill_montane_forest,
+        wis:lowland_forest,
+        wis:secondary_forest ;
+    wis:occursInCountry wis:MY ;
+    wis:scientificName "Panthera tigris jacksoni" ;
+    wis:statusSource "override: IUCN Red List assessment of P. tigris ssp. jacksoni (2015) lists CR; GBIF resolves only to species (EN). Verify on iucnredlist.org." ;
+    wis:subspeciesOf wis:tiger ;
+    wis:threatenedBy wis:habitat_loss,
+        wis:human_wildlife_conflict,
+        wis:poaching,
+        wis:roadkill .
+
+wis:masked_palm_civet a wis:Species ;
+    rdfs:label "Masked palm civet"@en,
+        "花面狸"@zh ;
+    wis:hasIUCNStatus wis:LC ;
+    wis:livesIn wis:hill_montane_forest,
+        wis:lowland_forest ;
+    wis:occursInCountry wis:MY ;
+    wis:scientificName "Paguma larvata" ;
+    wis:statusSource "GBIF/IUCN" ;
+    wis:threatenedBy wis:poaching ;
+    wis:wcsLabel "paguma larvata" .
+
+wis:pigtailed_macaque a wis:Species ;
+    rdfs:label "Southern pig-tailed macaque"@en,
+        "beruk"@ms,
+        "豚尾猕猴"@zh ;
+    wis:hasIUCNStatus wis:EN ;
+    wis:livesIn wis:hill_montane_forest,
+        wis:lowland_forest ;
+    wis:occursInCountry wis:MY ;
+    wis:scientificName "Macaca nemestrina" ;
+    wis:statusSource "GBIF/IUCN" ;
+    wis:threatenedBy wis:habitat_loss,
+        wis:illegal_wildlife_trade ;
+    wis:wcsLabel "macaca nemestrina" .
+
+wis:pulau_ubin a wis:ProtectedArea ;
+    rdfs:label "Pulau Ubin"@en ;
+    wis:hasHabitat wis:forest_edge,
+        wis:mangrove,
+        wis:secondary_forest ;
+    wis:inCountry wis:SG ;
+    wis:lat 1.4044 ;
+    wis:lon 103.9625 ;
+    wis:zoneType "nature_area" .
+
+wis:red_muntjac a wis:Species ;
+    rdfs:label "Southern red muntjac"@en,
+        "kijang"@ms,
+        "赤麂"@zh ;
+    wis:hasIUCNStatus wis:LC ;
+    wis:livesIn wis:forest_edge,
+        wis:lowland_forest,
+        wis:secondary_forest ;
+    wis:occursInCountry wis:MY,
+        wis:SG ;
+    wis:scientificName "Muntiacus muntjak" ;
+    wis:statusSource "GBIF/IUCN" ;
+    wis:threatenedBy wis:poaching ;
+    wis:wcsLabel "muntiacus muntjak" .
+
+wis:royal_belum a wis:ProtectedArea ;
+    rdfs:label "Royal Belum State Park"@en ;
+    wis:hasHabitat wis:hill_montane_forest,
+        wis:lowland_forest ;
+    wis:inCountry wis:MY ;
+    wis:lat 5.5500 ;
+    wis:lon 101.4000 ;
+    wis:zoneType "state_park" .
+
+wis:sambar a wis:Species ;
+    rdfs:label "Sambar deer"@en,
+        "rusa sambar"@ms,
+        "水鹿"@zh ;
+    wis:hasIUCNStatus wis:VU ;
+    wis:livesIn wis:forest_edge,
+        wis:hill_montane_forest,
+        wis:lowland_forest ;
+    wis:occursInCountry wis:MY ;
+    wis:scientificName "Rusa unicolor" ;
+    wis:statusSource "GBIF/IUCN" ;
+    wis:threatenedBy wis:habitat_loss,
+        wis:poaching ;
+    wis:wcsLabel "rusa unicolor" .
+
+wis:smooth_otter a wis:Species ;
+    rdfs:label "Smooth-coated otter"@en,
+        "memerang licin"@ms,
+        "江獭"@zh ;
+    wis:hasIUCNStatus wis:VU ;
+    wis:livesIn wis:mangrove,
+        wis:urban_green,
+        wis:wetland ;
+    wis:occursInCountry wis:MY,
+        wis:SG ;
+    wis:scientificName "Lutrogale perspicillata" ;
+    wis:statusSource "GBIF/IUCN" ;
+    wis:threatenedBy wis:human_wildlife_conflict,
+        wis:roadkill .
+
+wis:straw_headed_bulbul a wis:Species ;
+    rdfs:label "Straw-headed bulbul"@en,
+        "barau-barau"@ms,
+        "草头鹎"@zh ;
+    wis:hasIUCNStatus wis:CR ;
+    wis:livesIn wis:forest_edge,
+        wis:secondary_forest,
+        wis:wetland ;
+    wis:occursInCountry wis:MY,
+        wis:SG ;
+    wis:scientificName "Pycnonotus zeylanicus" ;
+    wis:statusSource "GBIF/IUCN" ;
+    wis:threatenedBy wis:illegal_wildlife_trade .
+
+wis:sun_bear a wis:Species ;
+    rdfs:label "Sun bear"@en,
+        "beruang madu"@ms,
+        "马来熊"@zh ;
+    wis:hasIUCNStatus wis:VU ;
+    wis:livesIn wis:hill_montane_forest,
+        wis:lowland_forest,
+        wis:peat_swamp ;
+    wis:occursInCountry wis:MY ;
+    wis:scientificName "Helarctos malayanus" ;
+    wis:statusSource "GBIF/IUCN" ;
+    wis:threatenedBy wis:habitat_loss,
+        wis:illegal_wildlife_trade,
+        wis:poaching ;
+    wis:wcsLabel "helarctos malayanus" .
+
+wis:sunda_colugo a wis:Species ;
+    rdfs:label "Sunda colugo"@en,
+        "kubung"@ms,
+        "斑鼯猴"@zh ;
+    wis:hasIUCNStatus wis:LC ;
+    wis:livesIn wis:lowland_forest,
+        wis:secondary_forest,
+        wis:urban_green ;
+    wis:occursInCountry wis:MY,
+        wis:SG ;
+    wis:scientificName "Galeopterus variegatus" ;
+    wis:statusSource "GBIF/IUCN" ;
+    wis:threatenedBy wis:habitat_loss,
+        wis:roadkill .
+
+wis:sunda_pangolin a wis:Species ;
+    rdfs:label "Sunda pangolin"@en,
+        "tenggiling"@ms,
+        "马来穿山甲"@zh ;
+    wis:hasIUCNStatus wis:CR ;
+    wis:livesIn wis:lowland_forest,
+        wis:secondary_forest,
+        wis:urban_green ;
+    wis:occursInCountry wis:MY,
+        wis:SG ;
+    wis:scientificName "Manis javanica" ;
+    wis:statusSource "GBIF/IUCN" ;
+    wis:threatenedBy wis:illegal_wildlife_trade,
+        wis:poaching,
+        wis:roadkill ;
+    wis:wcsLabel "manis javanica" .
+
+wis:sungei_buloh a wis:ProtectedArea ;
+    rdfs:label "Sungei Buloh Wetland Reserve"@en ;
+    wis:hasHabitat wis:mangrove,
+        wis:wetland ;
+    wis:inCountry wis:SG ;
+    wis:lat 1.4467 ;
+    wis:lon 103.7300 ;
+    wis:zoneType "nature_reserve" .
+
+wis:taman_negara a wis:ProtectedArea ;
+    rdfs:label "Taman Negara National Park"@en ;
+    wis:hasHabitat wis:hill_montane_forest,
+        wis:lowland_forest ;
+    wis:inCountry wis:MY ;
+    wis:lat 4.3800 ;
+    wis:lon 102.4000 ;
+    wis:zoneType "national_park" .
+
+wis:wild_boar a wis:Species ;
+    rdfs:label "Wild boar"@en,
+        "babi hutan"@ms,
+        "野猪"@zh ;
+    wis:hasIUCNStatus wis:LC ;
+    wis:livesIn wis:forest_edge,
+        wis:lowland_forest,
+        wis:secondary_forest,
+        wis:urban_green ;
+    wis:occursInCountry wis:MY,
+        wis:SG ;
+    wis:scientificName "Sus scrofa" ;
+    wis:statusSource "GBIF/IUCN" ;
+    wis:threatenedBy wis:human_wildlife_conflict,
+        wis:roadkill ;
+    wis:wcsLabel "sus scrofa" .
+
+wis:tiger a wis:Species ;
+    rdfs:label "Tiger"@en,
+        "harimau"@ms,
+        "虎"@zh ;
+    wis:hasIUCNStatus wis:EN ;
+    wis:livesIn wis:hill_montane_forest,
+        wis:lowland_forest,
+        wis:secondary_forest ;
+    wis:occursInCountry wis:MY ;
+    wis:scientificName "Panthera tigris" ;
+    wis:statusSource "GBIF/IUCN" ;
+    wis:threatenedBy wis:habitat_loss,
+        wis:human_wildlife_conflict,
+        wis:poaching ;
+    wis:wcsLabel "panthera tigris" .
+

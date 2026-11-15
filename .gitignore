@@ -1,0 +1,33 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Data: only the download scripts and the data README are committed
+data/*
+!data/download_*.py
+!data/README.md
+
+# Model weights / caches
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.bin
+models/
+.cache/
+
+# Large result artefacts (figures + metrics JSON/CSV ARE committed)
+results/**/*.npy
+results/**/*.npz
+results/**/crops/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Private notes (video script etc.)
+private/

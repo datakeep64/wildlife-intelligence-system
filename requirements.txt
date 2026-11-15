@@ -1,0 +1,33 @@
+# Python 3.12 (3.13+ may lack wheels for torch/pykeen). CPU or Apple MPS; no CUDA needed.
+
+# --- core ---
+numpy>=1.26,<2.3
+pandas>=2.2
+requests>=2.31
+tqdm>=4.66
+pyyaml>=6.0
+pillow>=10.0
+matplotlib>=3.8
+scikit-learn>=1.4
+pytest>=8.0
+
+# --- PRS: camera-trap perception ---
+torch>=2.3
+torchvision>=0.18
+open_clip_torch>=2.24        # BioCLIP via hf-hub:imageomics/bioclip
+megadetector>=5.0.28         # MegaDetector v5a (animal / person / vehicle)
+umap-learn>=0.5.6            # embedding visualisation
+
+# --- PRS: multilingual alerts ---
+transformers>=4.44           # NLLB-200 distilled 600M
+sentencepiece>=0.2
+sacrebleu>=2.4               # chrF
+
+# --- IRS: knowledge graphs ---
+rdflib>=7.0                  # RDF/OWL ontology + SPARQL
+networkx>=3.2                # property graph
+pykeen>=1.10                 # embedding KG (TransE vs others) - Phase B
+
+# --- IRS: recommenders ---
+implicit>=0.7.2              # implicit ALS - Phase B
+scipy>=1.12

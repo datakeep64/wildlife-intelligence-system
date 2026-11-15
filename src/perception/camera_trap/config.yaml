@@ -1,0 +1,45 @@
+# Camera-trap experiment configuration (decided 2026-11-15).
+# Source: LILA BC "WCS Camera Traps". Countries: idn = Indonesia (Sumatra), lao = Laos, ken = Kenya.
+
+max_per_class: 150
+seed: 42
+test_fraction: 0.25          # via StratifiedGroupKFold grouped by camera location
+resize_max_side: 1280        # MegaDetector v5 native input size
+model: hf-hub:imageomics/bioclip          # alt: hf-hub:imageomics/bioclip-2 (ViT-L, ~4x slower)
+md_model: MDV5A
+md_threshold: 0.2
+
+classes:
+  # key matches src/reasoning/kg/species.csv
+  - {key: tiger,             wcs_label: panthera tigris,     countries: [idn, lao], note: "idn tigers are Sumatran (P. t. sumatrae), not Malayan"}
+  - {key: leopard,           wcs_label: panthera pardus,     countries: null,       note: "all countries; ~80% Kenya -> domain-gap analysis"}
+  - {key: clouded_leopard,   wcs_label: neofelis nebulosa,   countries: [idn, lao], note: "mainland clouded leopard only; N. diardi excluded"}
+  - {key: sun_bear,          wcs_label: helarctos malayanus, countries: [idn, lao]}
+  - {key: wild_boar,         wcs_label: sus scrofa,          countries: [idn, lao]}
+  - {key: malayan_tapir,     wcs_label: tapirus indicus,     countries: [idn, lao]}
+  - {key: sambar,            wcs_label: rusa unicolor,       countries: [idn, lao]}
+  - {key: red_muntjac,       wcs_label: muntiacus muntjak,   countries: [idn, lao]}
+  - {key: pigtailed_macaque, wcs_label: macaca nemestrina,   countries: [idn, lao]}
+  - {key: human,             wcs_label: human,               countries: [idn, lao]}
+
+zero_shot_only:
+  # too few images to train a probe on; evaluated zero-shot as a rare-class test
+  - {key: sunda_pangolin,    wcs_label: manis javanica,      countries: null}
+
+triage_empty:
+  # empty frames to measure MegaDetector false positives
+  - {key: empty,             wcs_label: empty,               countries: [idn, lao], n: 50}
+
+# BioCLIP zero-shot prompts: taxonomic string + common name works best for BioCLIP
+prompts:
+  tiger:             "Animalia Chordata Mammalia Carnivora Felidae Panthera tigris with common name tiger"
+  leopard:           "Animalia Chordata Mammalia Carnivora Felidae Panthera pardus with common name leopard"
+  clouded_leopard:   "Animalia Chordata Mammalia Carnivora Felidae Neofelis nebulosa with common name clouded leopard"
+  sun_bear:          "Animalia Chordata Mammalia Carnivora Ursidae Helarctos malayanus with common name sun bear"
+  wild_boar:         "Animalia Chordata Mammalia Artiodactyla Suidae Sus scrofa with common name wild boar"
+  malayan_tapir:     "Animalia Chordata Mammalia Perissodactyla Tapiridae Tapirus indicus with common name Malayan tapir"
+  sambar:            "Animalia Chordata Mammalia Artiodactyla Cervidae Rusa unicolor with common name sambar"
+  red_muntjac:       "Animalia Chordata Mammalia Artiodactyla Cervidae Muntiacus muntjak with common name red muntjac"
+  pigtailed_macaque: "Animalia Chordata Mammalia Primates Cercopithecidae Macaca nemestrina with common name pig-tailed macaque"
+  human:             "Animalia Chordata Mammalia Primates Hominidae Homo sapiens with common name human"
+  sunda_pangolin:    "Animalia Chordata Mammalia Pholidota Manidae Manis javanica with common name Sunda pangolin"

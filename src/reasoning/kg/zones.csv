@@ -1,0 +1,10 @@
+key,name,country,zone_type,lat,lon,habitats
+bukit_timah,Bukit Timah Nature Reserve,SG,nature_reserve,1.3546,103.7764,lowland_forest;secondary_forest
+central_catchment,Central Catchment Nature Reserve,SG,nature_reserve,1.3600,103.8100,lowland_forest;secondary_forest;wetland
+sungei_buloh,Sungei Buloh Wetland Reserve,SG,nature_reserve,1.4467,103.7300,mangrove;wetland
+pulau_ubin,Pulau Ubin,SG,nature_area,1.4044,103.9625,secondary_forest;mangrove;forest_edge
+taman_negara,Taman Negara National Park,MY,national_park,4.3800,102.4000,lowland_forest;hill_montane_forest
+endau_rompin,Endau-Rompin National Park,MY,national_park,2.5300,103.3800,lowland_forest;hill_montane_forest;peat_swamp
+royal_belum,Royal Belum State Park,MY,state_park,5.5500,101.4000,lowland_forest;hill_montane_forest
+krau,Krau Wildlife Reserve,MY,wildlife_reserve,3.7200,102.1800,lowland_forest;forest_edge
+kuala_selangor,Kuala Selangor Nature Park,MY,nature_park,3.3400,101.2400,mangrove;wetland;forest_edge
